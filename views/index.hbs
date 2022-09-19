@@ -1,12 +1,5 @@
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/styles/styles.css" />
-    <title>Document</title>
-  </head>
-  <body>
+
+
     <h1 style="color:white;">Onlyteams</h1>
 
     <main class="homePage">
@@ -14,10 +7,11 @@
       <section id="leftContainer">
         <div class="topPart"></div>
         <h1>Onlyteams</h1>
-        <a href="">Find Teams</a>
-        <a href="">Feed</a>
+        <a href="/">Find Teams</a>
+        <a href="/feed">Feed</a>
         <a href="">Messages</a>
         <a href="/createteam">Create A Team</a>
+        <a href="/memories">Post A Memory</a>
 
       </section>
 
@@ -39,7 +33,7 @@
 
           {{#each teamList}}
             <div class="eachTeam">
-              <h1>{{teamName}}</h1>
+              <a href="/teamplayers/{{_id}}">{{teamName}}</h1></a>
               <p>{{tag}}</p>
               <p>{{location}}</p>
               <p>{{division}}</p>
@@ -49,8 +43,14 @@
         </div>
 
       </section>
+
+      <section id="rightContainer">
+        <div class="topPart"></div>
+
+        <h1 class="mostRecent">Most Recent Posts</h1>
+        {{#each feedList}}
+          <img src="{{image}}" alt="" />
+        {{/each}}
+      </section>
     </main>
 
-    <script src="../js/index.js"></script>
-  </body>
-</html>

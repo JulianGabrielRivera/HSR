@@ -3,6 +3,7 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/User.model");
 const Team = require("../models/Team.model");
+const Feed = require("../models/Feed.model");
 
 const bcryptjs = require("bcryptjs");
 
@@ -14,8 +15,9 @@ const {
 router.get("/", async (req, res) => {
   try {
     const teamList = await Team.find();
+    const feedList = await Feed.find();
     console.log(teamList);
-    res.render("index.hbs", { teamList });
+    res.render("index.hbs", { teamList: teamList, feedList: feedList });
   } catch (err) {
     console.log(err);
   }

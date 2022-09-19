@@ -19,7 +19,7 @@ const app = express();
 
 app.set("view engine", hbs);
 // dirname is whatever the file path app.js is then look in views folder.
-app.set("views", path.join(__dirname, ".", "/views"));
+app.set("views", path.join(__dirname, "", "/views"));
 app.use(express.static(path.join(__dirname, ".", "public")));
 app.use(morgan("dev"));
 
@@ -52,6 +52,8 @@ app.use("/", authRoutes);
 const teamRoutes = require("./routes/team.routes");
 app.use("/", teamRoutes);
 
+const memoriesRoutes = require("./routes/memories.routes");
+app.use("/", memoriesRoutes);
 app.listen(3000, () => {
   console.log("server running");
 });

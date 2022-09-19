@@ -43,6 +43,27 @@ router.get("/teamplayers", async (req, res) => {
     console.log(err);
   }
 });
+router.get("/teamplayers/:id", async (req, res) => {
+  const arr = [];
+  const { id } = req.params;
+  try {
+    const players = await User.find();
+    const team = await Team.findById(id);
+    players.forEach((player) => {
+      if (player.teamName === team.teamName) {
+        arr.push(player);
+      }
+    });
+    console.log(arr, "hey");
+
+    console.log(team);
+    console.log(players);
+
+    res.render("team.hbs", { team });
+  } catch (err) {
+    console.log(err);
+  }
+});
 
 router.get("/create-checkout-session", async (req, res) => {
   try {
