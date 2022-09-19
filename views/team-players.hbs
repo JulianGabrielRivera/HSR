@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/styles/styles.css"/>
+    <script src="https://checkout.stripe.com/checkout.js" defer></script>
+    <script></script>
+</head>
+<body>
+
+   
+      <div class="container">
+
+<h2>Vikings</h2>
+
+
+   
+
+    {{#each allVikings}}
+
+        <div class="card data" data-tilt>
+
+            <img src="images/vikingsmainlogo.png" alt="" class="vikinglogo">
+            <h1>{{this.username}}</h1>
+            <p>Viking</p>
+            <a href="https://play.esea.net/users/412720">ESEA profile</a>
+        </div>
+        
+
+
+
+    {{/each}}
+
+        </div>
+        <form action="/create-checkout-session">
+        <div class="donateContainer">
+
+            <select name="options">
+                <option value="5">5</option>
+                <option value="10">10</option>
+
+                <option value="15">15</option>
+                <option value="20">20</option>
+
+            </select>
+           
+<button type="submit">Donate</button>
+
+            </form>
+      
+     
+        </div>
+            {{!-- <div>
+             <p>Total</p>
+        </div> --}}
+  
+     <script src="/js/vanilla-tilt.js"></script>
+</body>
+</html>

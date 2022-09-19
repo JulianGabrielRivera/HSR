@@ -10,7 +10,28 @@ const userSchema = new Schema({
     password:{
         type:String,
         required:true
+    },
+    alias: {
+        type:String,
+        required:true
+    },
+        name:{
+            type:String,
+            required:true
+        }
+        , teamName:{
+            
+                type:String,
+                required:true
+            
+        },
+        teamRole:{
+            
+            type:String,
+            required:true
+        
     }
+    
 })
 
 const User = mongoose.model('User',userSchema)
