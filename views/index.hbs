@@ -1,58 +1,56 @@
-<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/styles/styles.css"/>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/styles/styles.css" />
     <title>Document</title>
-</head>
-<body>
+  </head>
+  <body>
     <h1 style="color:white;">Onlyteams</h1>
-   
-   <main class="homePage">
 
-   <section id="leftContainer">
-    <div class="topPart"></div>
-    <h1>Onlyteams</h1>
-<a href="">Find Teams</a>
-<a href="">Feed</a>
-<a href="">Messages</a>
-<a href="/createteam">Create A Team</a>
+    <main class="homePage">
 
-
-
-   </section>
-
-   <section id="middleContainer">
+      <section id="leftContainer">
         <div class="topPart"></div>
-        
+        <h1>Onlyteams</h1>
+        <a href="">Find Teams</a>
+        <a href="">Feed</a>
+        <a href="">Messages</a>
+        <a href="/createteam">Create A Team</a>
 
-    <h1>Find Teams</h1>
+      </section>
+
+      <section id="middleContainer">
+        <div class="topPart"></div>
+
+        <h1>Find Teams</h1>
         <select name="team" class="team">
-{{#each teamList}}
-        <option value="{{teamName}}{{tag}}{{location}}{{division}}" class="teamOption">{{teamName}}</option>
-        
-        {{/each}}
-    </select>
+          {{#each teamList}}
+            <option
+              value="{{teamName}}{{tag}}{{location}}{{division}}"
+              class="teamOption"
+            >{{teamName}}</option>
 
-    <div class="teamsHere">
+          {{/each}}
+        </select>
 
-{{#each teamList}}
-<div class="eachTeam">
-    <h1>{{teamName}}</h1>
-    <p>{{tag}}</p>
-    <p>{{location}}</p>
-    <p>{{division}}</p>
-    </div>
-   
-{{/each}}
-</div>
+        <div class="teamsHere">
 
-   </section>
-   </main>
+          {{#each teamList}}
+            <div class="eachTeam">
+              <h1>{{teamName}}</h1>
+              <p>{{tag}}</p>
+              <p>{{location}}</p>
+              <p>{{division}}</p>
+            </div>
 
-    
+          {{/each}}
+        </div>
+
+      </section>
+    </main>
+
     <script src="../js/index.js"></script>
-</body>
+  </body>
 </html>
