@@ -2,6 +2,9 @@ const express = require('express')
 
 const router = express.Router()
 const User = require('../models/User.model')
+const Team = require('../models/Team.model')
+
+
 const stripe = require('stripe')(`sk_test_${process.env.STRIPE_SECRET_KEY}`);
 
 const YOUR_DOMAIN = "http://localhost:3000";
@@ -9,6 +12,27 @@ const YOUR_DOMAIN = "http://localhost:3000";
 const {isAuthenticated,isNotAuthenticated} = require('../middlewares/auth.middleware');
 const session = require('express-session');
 
+
+router.get('/createteam', async(req,res)=>{
+res.render('create-team.hbs')
+
+
+
+})
+
+router.post('/createteam', async(req,res)=>{
+const {teamName,tag,joinPassword,location,division} = req.body;
+
+try{
+    const newTeam = await Team.create({teamName,tag,joinPassword,location,division})
+res.redirect('/')
+}
+    catch(err){
+        console.log(err)
+    }
+    
+    
+    })
 router.get('/teamplayers', async(req,res) =>{
    
 

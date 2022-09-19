@@ -72,3 +72,92 @@ body h2 {
   color: white;
   font-size: 20px;
 }
+.mainCreateTeamDiv {
+  display: flex;
+
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+}
+.createTeamContainer {
+  display: flex;
+  flex-direction: column;
+
+  max-width: 200px;
+  color: white;
+}
+.createTeamContainer input {
+  margin-bottom: 20px;
+}
+.createTeamFormContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed black;
+  width: 500px;
+  max-width: 500px;
+  height: 500px;
+}
+#leftContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 300px;
+  max-width: 300px;
+  border: 3px solid black;
+  color: white;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 7px;
+  font-weight: 600px;
+}
+#leftContainer a {
+  margin-top: 5px;
+  margin-bottom: 15px;
+  text-decoration: none;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  margin-left: 10px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(20px);
+  border-radius: 7px;
+}
+.topPart {
+  height: 50px;
+  background-color: black;
+  border-radius: 7px;
+}
+#middleContainer {
+  border: 3px solid black;
+  max-width: 600px;
+  width: 600px;
+  text-align: center;
+  margin-left: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 7px;
+}
+.homePage {
+  color: white;
+  display: flex;
+
+  justify-content: center;
+}
+.teamsHere {
+  display: flex;
+  flex-direction: column;
+}
+.eachTeam {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.test {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-around;
+}

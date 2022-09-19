@@ -12,7 +12,11 @@ const teamSchema = new Schema({
     
   }
   ,
-  comments: [{type:Schema.Types.ObjectId, ref: 'Comment'}]
+  tag: String,
+  joinPassword:String,
+  comments: [{type:Schema.Types.ObjectId, ref: 'Comment'}],
+  location:String,
+  division:String,
     
 })
 

@@ -2,14 +2,23 @@ const express = require('express')
 
 const router = express.Router()
 const User = require('../models/User.model')
+const Team = require('../models/Team.model')
 
 const bcryptjs = require('bcryptjs');
 
 const {isAuthenticated,isNotAuthenticated} = require('../middlewares/auth.middleware')
 
 
-router.get('/', function (req, res) {
-    res.render('index.hbs')
+router.get('/',  async (req, res) => {
+
+  try{
+    const teamList = await Team.find()
+    console.log(teamList)
+    res.render('index.hbs', {teamList})
+  }
+  catch(err){
+    console.log(err)
+  }
   })
 
   router.get('/signup',(req,res,next)=>{
@@ -18,17 +27,22 @@ router.get('/', function (req, res) {
     res.render('auth/signup.hbs')
   })
 
-  router.post('/signup', (req,res,next) =>{
-const {username, password} = req.body
+  
+  
+  router.post('/signup', async(req,res,next) =>{
+const {username, password, name, teamRole, teamName, alias} = req.body
 
 // use bcrypt here
 
 const hashedPassword = bcryptjs.hashSync(password)
-User.create({username, password: hashedPassword})
-.then((userDetails) =>{
-console.log(userDetails)
-})
-.catch(err => console.log(err))
+
+try{
+const user = await User.create({username, password: hashedPassword, name,teamRole,teamName, alias})
+}
+
+catch(err){
+  console.log(err)
+}
 
   })
 
@@ -44,28 +58,31 @@ console.log(userDetails)
 
 
 
-  router.post('/login', (req,res,next)=>{
+  router.post('/login', async(req,res,next)=>{
     const {username, password} = req.body
 
+    try{
+      const foundUser = await User.findOne({username})
+      if(!foundUser){
+        res.send('user not found')
+       }
 
-        User.findOne({username})
-        .then((foundUser)=>{
-           if(!foundUser){
-            res.send('user not found')
-           }
+       const isValidPassword = bcryptjs.compareSync(password, foundUser.password)
+       if(!isValidPassword){
+        res.send('incorrect password')
+    
+    }
+    req.session.user = foundUser;  
+        res.redirect('/profile')
+    }
+    
+     catch(err){
+      console.log(err)
+     }
 
-        //   
+    
 
-        const isValidPassword = bcryptjs.compareSync(password, foundUser.password)
 
-        if(!isValidPassword){
-            res.send('incorrect password')
-        
-        }
-        req.session.user = foundUser;  
-            res.redirect('/profile')
-        })
-        .catch(err=>console.log(err))
   })
 
   router.get('/profile', (req,res,next)=>{
