@@ -5,6 +5,9 @@ const User = require("../models/User.model");
 const Team = require("../models/Team.model");
 const Feed = require("../models/Feed.model");
 
+require("dotenv/config");
+const formatMessage = require("../utils/messages");
+
 const bcryptjs = require("bcryptjs");
 
 const {
@@ -16,7 +19,7 @@ router.get("/", async (req, res) => {
   try {
     const teamList = await Team.find();
     const feedList = await Feed.find();
-    console.log(teamList);
+
     res.render("index.hbs", { teamList: teamList, feedList: feedList });
   } catch (err) {
     console.log(err);
@@ -70,6 +73,34 @@ router.post("/login", async (req, res, next) => {
   } catch (err) {
     console.log(err);
   }
+});
+
+const user = {};
+
+router.get("/chat", (req, res) => {
+  const io = req.app.get("socketio");
+
+  // Run when client connects
+  io.on("connection", (socket) => {
+    console.log(socket.id);
+
+    socket.on("joinRoom", (room) => {
+      user.room = room;
+      console.log(user);
+      console.log("hey");
+      console.log(room);
+      socket.join(room);
+    });
+
+    // socket.emit("message", "hey");
+    // listen for chatMessage
+    socket.on("chatMessage", (msg) => {
+      socket.to(user.room).emit(formatMessage(req.session.user.username, msg));
+      console.log(msg);
+    });
+  });
+
+  res.render("chat.hbs");
 });
 
 router.get("/profile", (req, res, next) => {

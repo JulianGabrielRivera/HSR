@@ -101,12 +101,12 @@ body h2 {
 #leftContainer {
   display: flex;
   flex-direction: column;
-
+  height: 100%;
   width: 300px;
   max-width: 300px;
   border: 3px solid black;
   color: white;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.3);
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 7px;
   font-weight: 600px;
@@ -119,10 +119,6 @@ body h2 {
   font-size: 18px;
   font-weight: bold;
   margin-left: 10px;
-  background: rgba(255, 255, 255, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(20px);
   border-radius: 7px;
 }
 .topPart {
@@ -136,9 +132,11 @@ body h2 {
   width: 600px;
   text-align: center;
   margin-left: 10px;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.4);
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 7px;
+  color: black;
+  font-weight: bold;
 }
 .homePage {
   color: white;
@@ -176,10 +174,73 @@ body h2 {
   overflow-y: scroll;
   position: relative;
 }
+.feedContainer {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+}
 .feedImages {
+  margin-top: 120px;
   height: 150px;
   width: 150px;
 }
 .mostRecent {
   text-align: center;
+}
+
+.mainChatContainer {
+  display: flex;
+  justify-content: center;
+}
+.chatLeftContainer {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  max-width: 300px;
+  border: 3px solid black;
+  color: white;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 7px;
+  font-weight: 600px;
+  height: 100vh;
+}
+.eachMessage {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: gray;
+  height: 50px;
+  border-bottom: 1px solid black;
+}
+.eachMessage p {
+  margin-left: 10px;
+}
+
+.chatRightContainer {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 600px;
+  text-align: center;
+  margin-left: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 7px;
+  overflow-y: scroll;
+}
+.chatRightContainer p {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 20px;
+}
+.chatRightContainer input {
+  height: 40px;
+  width: 100%;
+}
+.individualTeam {
+  display: flex;
+  justify-content: space-around;
 }

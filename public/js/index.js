@@ -6,6 +6,7 @@ specificTeam.addEventListener("change", (event) => {
   const oneTeam = document.querySelector(".teamsHere");
 
   const words = event.target.value.split(",");
+  console.log(words);
   if (oneTeam) {
     midContainer.removeChild(oneTeam);
   }
@@ -14,14 +15,14 @@ specificTeam.addEventListener("change", (event) => {
 
   words.forEach((word) => {
     let newEl = document.createElement("div");
-
+    newEl.textContent = word;
+    console.log(newEl);
     midContainer.appendChild(teamDiv);
     teamDiv.classList.add("individualTeam");
 
     let individualTeam = document.querySelector(".individualTeam");
 
     individualTeam.style.display = "flex";
-    newEl.textContent = word;
 
     individualTeam.appendChild(newEl);
   });

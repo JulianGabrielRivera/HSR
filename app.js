@@ -6,7 +6,10 @@ const hbs = require("hbs");
 const MongoStore = require("connect-mongo");
 const session = require("express-session");
 const path = require("path");
+const http = require("http");
+const socketio = require("socket.io");
 require("dotenv/config");
+const formatMessage = require("./utils/messages");
 
 mongoose
   .connect("mongodb://localhost/authExample")
@@ -16,6 +19,9 @@ mongoose
   .catch((err) => console.log(err));
 // this gives us our web server.
 const app = express();
+const server = http.createServer(app);
+const io = socketio(server);
+app.set("socketio", io);
 
 app.set("view engine", hbs);
 // dirname is whatever the file path app.js is then look in views folder.
@@ -34,7 +40,7 @@ app.use(
       sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
       secure: process.env.NODE_ENV === "production",
       httpOnly: true,
-      maxAge: 60000, // 60 * 1000 ms === 1 min
+      maxAge: 60000000, // 60 * 1000 ms === 1 min
     },
     store: MongoStore.create({
       mongoUrl: "mongodb://localhost/authExample",
@@ -54,6 +60,6 @@ app.use("/", teamRoutes);
 
 const memoriesRoutes = require("./routes/memories.routes");
 app.use("/", memoriesRoutes);
-app.listen(3000, () => {
+server.listen(3000, () => {
   console.log("server running");
 });
