@@ -64,23 +64,22 @@ io.on("connection", (socket) => {
   //   socket.join(room);
   // });
 
-  socket.on("message", (msg, room) => {
-    Messages.create({
-      msg: msg,
-      name: sesh,
-      time: moment().format("h:mm a"),
-    }).then((message) => {
-      Room.findOneAndUpdate(
-        { name: room },
-        { messages: message },
-        { new: true }
-      ).then((response) => {
-        console.log(response, "cool");
+  socket.on("message", async (msg, room) => {
+    try {
+      const messageCreated = await Messages.create({
+        msg: msg,
+        name: sesh,
+        time: moment().format("h:mm a"),
       });
-      io.emit("chatMessage", message);
-    });
-    console.log(room, "yo");
-    console.log(sesh);
+      const updatedRoom = await Room.findOneAndUpdate(
+        { name: room },
+        { $push: { messages: messageCreated }, $addToSet: { users: sesh } },
+        { new: true }
+      );
+      io.emit("chatMessage", messageCreated);
+    } catch (err) {
+      console.log(err);
+    }
   });
   // listen for chatMessage
   // socket.on("chatMessage", (message) => {
