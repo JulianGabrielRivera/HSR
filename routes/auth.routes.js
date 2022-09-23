@@ -19,7 +19,6 @@ router.get("/", async (req, res) => {
   try {
     const teamList = await Team.find();
     const feedList = await Feed.find();
-
     res.render("index.hbs", { teamList: teamList, feedList: feedList });
   } catch (err) {
     console.log(err);
@@ -75,30 +74,35 @@ router.post("/login", async (req, res, next) => {
   }
 });
 
-const user = {};
-
 router.get("/chat", (req, res) => {
-  const io = req.app.get("socketio");
-
   // Run when client connects
-  io.on("connection", (socket) => {
-    console.log(socket.id);
+  // const io = req.app.get("socketio");
 
-    socket.on("joinRoom", (room) => {
-      user.room = room;
-      console.log(user);
-      console.log("hey");
-      console.log(room);
-      socket.join(room);
-    });
+  // io.on("connection", (socket) => {
+  //   console.log(socket.id, "hey");
 
-    // socket.emit("message", "hey");
-    // listen for chatMessage
-    socket.on("chatMessage", (msg) => {
-      socket.to(user.room).emit(formatMessage(req.session.user.username, msg));
-      console.log(msg);
-    });
-  });
+  //   // socket.on("joinRoom", (room) => {
+  //   //   user.room = room;
+  //   //   console.log("hey");
+  //   //   console.log(room);
+  //   //   socket.join(room);
+  //   // });
+
+  //   socket.on("message", (msg, room) => {
+  //     console.log(msg, "hey");
+  //     socket.broadcast.emit("chatMessage", msg);
+  //   });
+  //   // listen for chatMessage
+  //   // socket.on("chatMessage", (message) => {
+  //   //   io.to(user.room).emit(message);
+  //   //   console.log(message, "msg");
+  //   // });
+
+  //   socket.on("joinRoom", (room) => {
+  //     socket.join(room);
+  //   });
+
+  // });
 
   res.render("chat.hbs");
 });

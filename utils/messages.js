@@ -3,7 +3,7 @@ const moment = require("moment");
 const formatMessage = (username, text) => {
   return {
     username,
-    text,
+    msg,
     time: moment().format("h:mm a"),
   };
 };

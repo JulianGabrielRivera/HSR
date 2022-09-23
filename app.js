@@ -10,6 +10,9 @@ const http = require("http");
 const socketio = require("socket.io");
 require("dotenv/config");
 const formatMessage = require("./utils/messages");
+const moment = require("moment");
+const Messages = require("./models/Messages.model");
+const Room = require("./models/Room.model");
 
 mongoose
   .connect("mongodb://localhost/authExample")
@@ -21,7 +24,6 @@ mongoose
 const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
-app.set("socketio", io);
 
 app.set("view engine", hbs);
 // dirname is whatever the file path app.js is then look in views folder.
@@ -31,22 +33,82 @@ app.use(morgan("dev"));
 
 app.set("trust proxy", 1);
 
-app.use(
-  session({
-    secret: "hey",
-    resave: true,
-    saveUninitialized: false,
-    cookie: {
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-      secure: process.env.NODE_ENV === "production",
-      httpOnly: true,
-      maxAge: 60000000, // 60 * 1000 ms === 1 min
-    },
-    store: MongoStore.create({
-      mongoUrl: "mongodb://localhost/authExample",
-    }),
-  })
-);
+const useSession = session({
+  secret: "hey",
+  resave: true,
+  saveUninitialized: false,
+  cookie: {
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    secure: process.env.NODE_ENV === "production",
+    httpOnly: true,
+    maxAge: 60000000, // 60 * 1000 ms === 1 min
+  },
+  store: MongoStore.create({
+    mongoUrl: "mongodb://localhost/authExample",
+  }),
+});
+
+app.use(useSession);
+app.set("socketio", io);
+
+const wrap = (middleware) => (socket, next) =>
+  middleware(socket.request, {}, next);
+io.use(wrap(useSession));
+io.on("connection", (socket) => {
+  console.log(socket.id, "connected");
+  const sesh = socket.request.session.user.name;
+  // socket.on("joinRoom", (room) => {
+  //   user.room = room;
+  //   console.log("hey");
+  //   console.log(room);
+  //   socket.join(room);
+  // });
+
+  socket.on("message", (msg, room) => {
+    Messages.create({
+      msg: msg,
+      name: sesh,
+      time: moment().format("h:mm a"),
+    }).then((message) => {
+      Room.findOneAndUpdate(
+        { name: room },
+        { messages: message },
+        { new: true }
+      ).then((response) => {
+        console.log(response, "cool");
+      });
+      io.emit("chatMessage", message);
+    });
+    console.log(room, "yo");
+    console.log(sesh);
+  });
+  // listen for chatMessage
+  // socket.on("chatMessage", (message) => {
+  //   io.to(user.room).emit(message);
+  //   console.log(message, "msg");
+  // });
+
+  socket.on("joinRoom", async (room) => {
+    console.log("joined room", room);
+
+    try {
+      const foundRoom = await Room.findOne({ name: room });
+      console.log(foundRoom, "roomaso1");
+      if (!foundRoom) {
+        const createdRoom = await Room.create({ name: room });
+        console.log(room, "roomaso");
+        socket.join(createdRoom);
+      } else {
+        console.log("you FAIL!");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  });
+  socket.on("disconnect", () => {
+    console.log(socket.id, "disconnected"); // undefined
+  });
+});
 
 // parsing data from form
 app.use(bodyParser.urlencoded({ extended: false }));
