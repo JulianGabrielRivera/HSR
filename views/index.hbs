@@ -1,7 +1,9 @@
 
 
     {{!-- <h1 style="color:white;">Onlyteams</h1> --}}
-
+ <form id="logout-form" action="/logout" method="POST">
+    <button type="submit">Logout</button>
+  </form>
     <main class="homePage">
 
       <section id="leftContainer">
@@ -51,6 +53,9 @@
         <h1 class="mostRecent">Most Recent Posts</h1>
         {{#each feedList}}
           <img src="{{image}}" alt="" />
+          
+                  <p>posted by: <a  class="userPost">{{username}} </a></p>
+
         {{/each}}
       </section>
     </main>

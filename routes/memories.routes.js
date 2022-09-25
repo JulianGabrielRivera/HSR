@@ -17,8 +17,12 @@ router.post(
   "/memories",
   fileUploader.single("memoryImage"),
   async (req, res) => {
+    const username = req.session.user.username;
     try {
-      const imageCreated = await Feed.create({ image: req.file.path });
+      const imageCreated = await Feed.create({
+        image: req.file.path,
+        username: username,
+      });
       console.log(imageCreated);
     } catch (err) {
       console.log(err);

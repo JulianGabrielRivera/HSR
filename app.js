@@ -54,9 +54,10 @@ app.set("socketio", io);
 const wrap = (middleware) => (socket, next) =>
   middleware(socket.request, {}, next);
 io.use(wrap(useSession));
+
 io.on("connection", (socket) => {
   console.log(socket.id, "connected");
-  const sesh = socket.request.session.user.name;
+
   // socket.on("joinRoom", (room) => {
   //   user.room = room;
   //   console.log("hey");
@@ -64,19 +65,23 @@ io.on("connection", (socket) => {
   //   socket.join(room);
   // });
 
-  socket.on("message", async (msg, room) => {
+  socket.on("message", async (msg, roomie) => {
+    const sesh = socket.request.session.user.name;
     try {
       const messageCreated = await Messages.create({
         msg: msg,
         name: sesh,
         time: moment().format("h:mm a"),
       });
+      io.emit("chatMessage", messageCreated);
+
+      console.log(messageCreated, "hey");
       const updatedRoom = await Room.findOneAndUpdate(
-        { name: room },
+        { name: roomie },
         { $push: { messages: messageCreated }, $addToSet: { users: sesh } },
         { new: true }
       );
-      io.emit("chatMessage", messageCreated);
+      console.log(updatedRoom, "hey");
     } catch (err) {
       console.log(err);
     }
@@ -86,15 +91,18 @@ io.on("connection", (socket) => {
   //   io.to(user.room).emit(message);
   //   console.log(message, "msg");
   // });
+  socket.on("disconnect", () => {
+    console.log(socket.id, "disconnected"); // undefined
+  });
 
-  socket.on("joinRoom", async (room) => {
-    console.log("joined room", room);
+  socket.on("joinRoom", async (roomie) => {
+    console.log("joined room", roomie);
 
     try {
-      const foundRoom = await Room.findOne({ name: room });
+      const foundRoom = await Room.findOne({ name: roomie });
       console.log(foundRoom, "roomaso1");
       if (!foundRoom) {
-        const createdRoom = await Room.create({ name: room });
+        const createdRoom = await Room.create({ name: roomie });
         console.log(room, "roomaso");
         socket.join(createdRoom);
       } else {
@@ -103,9 +111,6 @@ io.on("connection", (socket) => {
     } catch (err) {
       console.log(err);
     }
-  });
-  socket.on("disconnect", () => {
-    console.log(socket.id, "disconnected"); // undefined
   });
 });
 

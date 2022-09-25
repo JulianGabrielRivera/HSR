@@ -13,31 +13,13 @@
 
 <div class="chatLeftContainer">
 
-
+{{#each allRooms}}
 <div class="eachMessage">
 
-    <p class="first">Julian</p>
+   <a href="/chat/{{id}}">{{name}}</a>
 </div>
-  <div class="eachMessage">
 
-    <p>Suzy</p>
-</div>
-  <div class="eachMessage">
-
-    <p>Ivar</p>
-</div>
-  <div class="eachMessage">
-
-    <p>Suzy</p>
-</div>
-  <div class="eachMessage">
-
-    <p>Suzy</p>
-</div>
-  <div class="eachMessage">
-
-    <p>Suzy</p>
-</div>
+{{/each}}
 
 
 

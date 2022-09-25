@@ -174,10 +174,13 @@ body h2 {
   overflow-y: scroll;
   position: relative;
 }
+#rightContainer a {
+  color: white;
+  text-decoration: none;
+}
 .feedContainer {
   display: flex;
   justify-content: center;
-  height: 100%;
 }
 .feedImages {
   margin-top: 120px;
@@ -214,8 +217,11 @@ body h2 {
   height: 50px;
   border-bottom: 1px solid black;
 }
-.eachMessage p {
+.eachMessage a {
+  color: white;
+  font-weight: bold;
   margin-left: 10px;
+  text-decoration: none;
 }
 
 .chatRightContainer {
