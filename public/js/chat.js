@@ -110,8 +110,10 @@ newestRoom.textContent = createARoom;
 newestRoom.classList.add("eachMessage");
 console.log(newestRoom);
 chatContainer.appendChild(newestRoom);
-console.log(createARoom);
 
+// axios.get("http://localhost:3000/chat", newestRoom).then((response) => {
+//   console.log(response);
+// });
 // });
 
 // username + room
@@ -132,3 +134,6 @@ console.log(createARoom);
 //   input.value = "";
 //   input.focus();
 // });
+{
+  /* <script src="https://unpkg.com/axios/dist/axios.min.js"></script>; */
+}

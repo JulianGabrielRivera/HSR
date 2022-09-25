@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const feedSchema = new Schema({
   image: String,
-  username: String,
+  user: { type: Schema.Types.ObjectId, ref: "User" },
 });
 
 const Feed = mongoose.model("Feed", feedSchema);

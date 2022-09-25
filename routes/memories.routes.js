@@ -3,6 +3,7 @@ const express = require("express");
 const router = express.Router();
 const fileUploader = require("../config/cloudinary.config");
 const Feed = require("../models/Feed.model");
+const mongoose = require("mongoose");
 
 const {
   isAuthenticated,
@@ -17,11 +18,14 @@ router.post(
   "/memories",
   fileUploader.single("memoryImage"),
   async (req, res) => {
-    const username = req.session.user.username;
+    console.log(req.session);
+    const username = req.session.user._id;
+    console.log(username);
+
     try {
       const imageCreated = await Feed.create({
         image: req.file.path,
-        username: username,
+        user: username,
       });
       console.log(imageCreated);
     } catch (err) {

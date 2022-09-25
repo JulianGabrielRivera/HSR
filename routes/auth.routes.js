@@ -19,9 +19,9 @@ const {
 router.get("/", async (req, res) => {
   try {
     const teamList = await Team.find();
-    const feedList = await Feed.find();
+    const feedList = await Feed.find().populate("user");
     const userList = await User.find();
-    console.log(userList);
+    console.log(feedList, "hey");
     res.render("index.hbs", {
       teamList: teamList,
       feedList: feedList,
@@ -89,6 +89,9 @@ router.get("/chat", async (req, res) => {
   } catch (err) {
     console.log(err);
   }
+  // router.post("/chat", (req, res) => {
+  //   console.log(response);
+  // });
 
   // Run when client connects
   // const io = req.app.get("socketio");

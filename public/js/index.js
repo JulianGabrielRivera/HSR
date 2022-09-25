@@ -5,7 +5,6 @@ const userPost = document.querySelectorAll(".userPost");
 // const chatContainer = document.querySelector(".chatLeftContainer");
 const link = document.querySelectorAll("#rightContainer a");
 console.log(link);
-console.log(chatContainer);
 console.log(userPost);
 specificTeam.addEventListener("change", (event) => {
   const oneTeam = document.querySelector(".teamsHere");
@@ -33,7 +32,6 @@ specificTeam.addEventListener("change", (event) => {
   });
 });
 
-// console.log(yea);
 userPost.forEach((user) => {
   user.addEventListener("click", () => {
     const div = document.createElement("div");
@@ -48,8 +46,10 @@ userPost.forEach((user) => {
   });
 });
 link.forEach((link) => {
+  const attValue = link.getAttribute("data-value");
+  console.log(attValue);
   link.addEventListener("click", () => {
-    link.href = "/chat";
+    link.href = `/chat/${attValue}`;
   });
 });
 
