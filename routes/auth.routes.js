@@ -83,9 +83,11 @@ router.post("/login", async (req, res, next) => {
 
 router.get("/chat", async (req, res) => {
   try {
-    const allRooms = await Room.find();
-    console.log(allRooms);
-    res.render("chat.hbs", { allRooms });
+    // const allRooms = await Room.find();
+    // console.log(allRooms);
+    const user = await User.findById(req.session.user._id).populate("rooms");
+    console.log(user, "noooooo");
+    res.render("chat.hbs", { user });
   } catch (err) {
     console.log(err);
   }
@@ -125,11 +127,14 @@ router.get("/chat", async (req, res) => {
 router.get("/chat/:id", async (req, res, next) => {
   const { id } = req.params;
   try {
-    const allRooms = await Room.find();
+    const allRooms = await Room.findById(id);
+    console.log(allRooms, "");
     const findARoom = await Room.findById(id).populate("messages");
     console.log(findARoom);
-
-    res.render("chat.hbs", { allRooms: allRooms, findARoom: findARoom });
+    res.render("chat.hbs", {
+      allRooms: allRooms,
+      findARoom: findARoom,
+    });
   } catch (err) {
     console.log(err);
   }

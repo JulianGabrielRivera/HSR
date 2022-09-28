@@ -13,6 +13,7 @@ const formatMessage = require("./utils/messages");
 const moment = require("moment");
 const Messages = require("./models/Messages.model");
 const Room = require("./models/Room.model");
+const User = require("./models/User.model");
 
 mongoose
   .connect("mongodb://localhost/authExample")
@@ -74,13 +75,14 @@ io.on("connection", (socket) => {
         time: moment().format("h:mm a"),
       });
       io.emit("chatMessage", messageCreated);
-
-      console.log(messageCreated, "hey");
+      console.log(roomie);
+      console.log(messageCreated, "heyyyy");
       const updatedRoom = await Room.findOneAndUpdate(
         { name: roomie },
         { $push: { messages: messageCreated }, $addToSet: { users: sesh } },
         { new: true }
       );
+
       console.log(updatedRoom, "hey");
     } catch (err) {
       console.log(err);
@@ -92,25 +94,37 @@ io.on("connection", (socket) => {
   //   console.log(message, "msg");
   // });
 
-  socket.on("disconnect", () => {
-    console.log(socket.id, "disconnected"); // undefined
-  });
+  // socket.on("disconnect", () => {
+  //   console.log(socket.id, "disconnected"); // undefined
+  // });
 
   socket.on("joinRoom", async (roomie) => {
     console.log("joined room", roomie);
-
+    console.log(socket.request.session.user.name);
     try {
       const foundRoom = await Room.findOne({ name: roomie });
       console.log(foundRoom, "roomaso1");
+      // const updateUser = await User.findOneAndUpdate(
+      //   { username: socket.request.session.user.name },
+      //   { $addToSet: { rooms: foundRoom._id } },
+      //   { new: true }
+      // );
+      // console.log(updateUser, "lllllll");
       if (!foundRoom) {
         const createdRoom = await Room.create({ name: roomie });
-        console.log(room, "roomaso");
+        console.log(roomie, "roomaso");
+        const updateUser = await User.findOneAndUpdate(
+          { username: socket.request.session.user.name },
+          { $addToSet: { rooms: createdRoom._id } },
+          { new: true }
+        );
+        console.log(updateUser, "lllllll");
         socket.join(createdRoom);
       } else {
         console.log("you FAIL!");
       }
     } catch (err) {
-      console.log(err);
+      console.log(err, "yooy");
     }
   });
 });

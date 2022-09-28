@@ -4,6 +4,7 @@ const teamDiv = document.createElement("div");
 const userPost = document.querySelectorAll(".userPost");
 // const chatContainer = document.querySelector(".chatLeftContainer");
 const link = document.querySelectorAll("#rightContainer a");
+
 console.log(link);
 console.log(userPost);
 specificTeam.addEventListener("change", (event) => {
@@ -43,6 +44,7 @@ userPost.forEach((user) => {
     console.log(value);
 
     localStorage.setItem("myDiv", value);
+    // socket.emit("joinRoom", value);
   });
 });
 link.forEach((link) => {

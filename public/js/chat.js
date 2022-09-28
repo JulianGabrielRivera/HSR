@@ -4,12 +4,86 @@ const chatForm = document.querySelector("#chat-form");
 const input = document.querySelector(".messageInput");
 const messages = document.querySelector(".chatMessages");
 // when submitting a message
-const room = document.querySelectorAll(".eachMessage p");
+const room = document.querySelectorAll(".eachMessage a");
 const roomOne = document.querySelector(".eachMessage .first");
 const div = document.createElement("div");
+let chatContainer = document.querySelector(".chatLeftContainer");
+const newestRoom = document.createElement("div");
 
-console.log(roomOne);
 console.log(room);
+const value = localStorage.getItem("myDiv");
+const a = document.createElement("a");
+
+a.innerText = value;
+console.log(a);
+// console.log(chatContainer.lastElementChild.innerText);
+let usersArray = Array.from(room);
+
+newestRoom.textContent = value;
+newestRoom.classList.add("eachMessage");
+console.log(newestRoom);
+chatContainer.appendChild(newestRoom);
+// socket.emit("joinRoom", value);
+
+usersArray.forEach((user) => {
+  console.log(user.innerText);
+
+  if (user.innerText === value) {
+    newestRoom.textContent = "";
+    newestRoom.classList.remove("eachMessage");
+  }
+});
+console.log(usersArray);
+// if (chatContainer.lastElementChild.innerText !== value) {
+//   const createARoom = localStorage.getItem("myDiv");
+//   const newestRoom = document.createElement("div");
+
+//   newestRoom.textContent = createARoom;
+//   newestRoom.classList.add("eachMessage");
+//   console.log(newestRoom);
+//   chatContainer.appendChild(newestRoom);
+//   socket.emit("joinRoom", createARoom);
+// }
+
+// console.log(chatContainer.lastElementChild.innerText);
+// const inner = chatContainer.lastElementChild.innerText;
+// const array = [];
+// room.forEach((room, index) => {
+//   console.log(room.innerText);
+//   console.log(value);
+//   if (room.innerText !== value) {
+//     array.push(room.innerText);
+//   }
+
+//   console.log(array);
+// });
+
+// if (!array.includes(value)) {
+//   array.push(value);
+//   const createARoom = localStorage.getItem("myDiv");
+//   const newestRoom = document.createElement("div");
+
+//   newestRoom.textContent = createARoom;
+//   newestRoom.classList.add("eachMessage");
+//   console.log(newestRoom);
+//   chatContainer.appendChild(newestRoom);
+//   socket.emit("joinRoom", createARoom);
+// }
+// console.log(array);
+
+// if (room.innerText !== value) {
+//   let chatContainer = document.querySelector(".chatLeftContainer");
+
+//   const createARoom = localStorage.getItem("myDiv");
+//   const newestRoom = document.createElement("div");
+
+//   newestRoom.textContent = createARoom;
+//   newestRoom.classList.add("eachMessage");
+//   console.log(newestRoom);
+//   chatContainer.appendChild(newestRoom);
+//   socket.emit("joinRoom", createARoom);
+// }
+// );
 
 // socket.on("connect", () => {
 //   console.log("ok");
@@ -53,18 +127,31 @@ console.log(room);
 //   input.value = "";
 //   input.focus();
 // });
+
 let roomie = "";
+
 room.forEach((roomName) => {
   roomName.addEventListener("click", (e) => {
     // div.innerHTML = "";
     // socket.disconnect();
-
+    console.log(roomName);
     roomie = roomName.innerText;
 
     socket.connect();
     socket.emit("joinRoom", roomie);
     console.log(roomie);
   });
+
+  // let chatContainer = document.querySelector(".chatLeftContainer");
+
+  // const createARoom = localStorage.getItem("myDiv");
+  // const newestRoom = document.createElement("div");
+
+  // newestRoom.textContent = createARoom;
+  // newestRoom.classList.add("eachMessage");
+  // console.log(newestRoom);
+  // chatContainer.appendChild(newestRoom);
+  // socket.emit("joinRoom", createARoom);
 
   // roomName.addEventListener("click", () => {
   //   socket.disconnect("hi", () => {
@@ -83,7 +170,9 @@ chatForm.addEventListener("submit", (event) => {
   const msg = input.value;
 
   //   Emit message to server
-  socket.emit("message", msg, roomie);
+  socket.emit("message", msg, value);
+  console.log(msg);
+  console.log(value);
   // input.value = "";
   // input.focus();
 });
@@ -101,15 +190,16 @@ socket.on("chatMessage", (msg) => {
   input.focus();
   socket.connect();
 });
-let chatContainer = document.querySelector(".chatLeftContainer");
+// let chatContainer = document.querySelector(".chatLeftContainer");
 
-const createARoom = localStorage.getItem("myDiv");
-const newestRoom = document.createElement("div");
+// const createARoom = localStorage.getItem("myDiv");
+// const newestRoom = document.createElement("div");
 
-newestRoom.textContent = createARoom;
-newestRoom.classList.add("eachMessage");
-console.log(newestRoom);
-chatContainer.appendChild(newestRoom);
+// newestRoom.textContent = createARoom;
+// newestRoom.classList.add("eachMessage");
+// console.log(newestRoom);
+// chatContainer.appendChild(newestRoom);
+// socket.emit("joinRoom", createARoom);
 
 // axios.get("http://localhost:3000/chat", newestRoom).then((response) => {
 //   console.log(response);
