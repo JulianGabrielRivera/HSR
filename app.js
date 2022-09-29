@@ -68,12 +68,15 @@ io.on("connection", (socket) => {
 
   socket.on("message", async (msg, roomie) => {
     const sesh = socket.request.session.user.name;
+    console.log(roomie, "maybe");
+    console.log(sesh);
     try {
       const messageCreated = await Messages.create({
         msg: msg,
         name: sesh,
         time: moment().format("h:mm a"),
       });
+      console.log(roomie);
       io.emit("chatMessage", messageCreated);
       console.log(roomie);
       console.log(messageCreated, "heyyyy");
@@ -82,6 +85,12 @@ io.on("connection", (socket) => {
         { $push: { messages: messageCreated }, $addToSet: { users: sesh } },
         { new: true }
       );
+      const updatedCurrentUser = await User.findOneAndUpdate(
+        socket.request.session.user._id,
+        { $push: { messages: messageCreated } },
+        { new: true }
+      );
+      console.log(updatedCurrentUser, "yeasd");
 
       console.log(updatedRoom, "hey");
     } catch (err) {
@@ -94,35 +103,49 @@ io.on("connection", (socket) => {
   //   console.log(message, "msg");
   // });
 
-  // socket.on("disconnect", () => {
-  //   console.log(socket.id, "disconnected"); // undefined
-  // });
+  socket.on("joinRoom", async (roomie, value) => {
+    socket.on("disconnect", () => {
+      console.log(socket.id, "disconnected"); // undefined
+    });
+    socket.on("connect", () => {
+      console.log(socket.id, "connect"); // undefined
+    });
 
-  socket.on("joinRoom", async (roomie) => {
-    console.log("joined room", roomie);
-    console.log(socket.request.session.user.name);
+    console.log("joined room", roomie, value, "heyyyy");
+    console.log(socket.request.session.user.name, "l");
+    let objectId = mongoose.Types.ObjectId(value);
+
     try {
-      const foundRoom = await Room.findOne({ name: roomie });
-      console.log(foundRoom, "roomaso1");
-      // const updateUser = await User.findOneAndUpdate(
-      //   { username: socket.request.session.user.name },
-      //   { $addToSet: { rooms: foundRoom._id } },
-      //   { new: true }
-      // );
-      // console.log(updateUser, "lllllll");
+      const foundRoom = await Room.findOne({ name: objectId });
+      console.log(foundRoom);
       if (!foundRoom) {
-        const createdRoom = await Room.create({ name: roomie });
+        const createdRoom = await Room.create({
+          name: value,
+        });
+        console.log(createdRoom, "forrrreal");
         console.log(roomie, "roomaso");
         const updateUser = await User.findOneAndUpdate(
-          { username: socket.request.session.user.name },
-          { $addToSet: { rooms: createdRoom._id } },
+          socket.request.session.user.name,
+          { $addToSet: { rooms: createdRoom.name } },
           { new: true }
         );
         console.log(updateUser, "lllllll");
         socket.join(createdRoom);
-      } else {
-        console.log("you FAIL!");
       }
+
+      const updateUser = await User.findByIdAndUpdate(
+        socket.request.session.user._id,
+        { $addToSet: { rooms: foundRoom.name } },
+        { new: true }
+      );
+      console.log(updateUser, "lllllll");
+      console.log(objectId);
+      const pushUserToRoom = await Room.findOneAndUpdate(
+        { name: objectId },
+        { $addToSet: { users: socket.request.session.user.name } },
+        { new: true }
+      );
+      console.log(pushUserToRoom, " jackkkk");
     } catch (err) {
       console.log(err, "yooy");
     }

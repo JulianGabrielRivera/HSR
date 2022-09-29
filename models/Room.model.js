@@ -3,8 +3,8 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const roomSchema = new Schema({
-  name: { type: String, unique: true },
-  users: { type: Array, unique: true },
+  name: { type: Schema.Types.ObjectId, ref: "User", unique: true },
+  users: { type: Array },
   messages: [{ type: Schema.Types.ObjectId, ref: "Messages" }],
 });
 

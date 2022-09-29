@@ -32,6 +32,7 @@ specificTeam.addEventListener("change", (event) => {
     individualTeam.appendChild(newEl);
   });
 });
+localStorage.clear();
 
 userPost.forEach((user) => {
   user.addEventListener("click", () => {
@@ -43,7 +44,7 @@ userPost.forEach((user) => {
     const value = div.innerHTML;
     console.log(value);
 
-    localStorage.setItem("myDiv", value);
+    localStorage.setItem("name", value);
     // socket.emit("joinRoom", value);
   });
 });
@@ -52,6 +53,8 @@ link.forEach((link) => {
   console.log(attValue);
   link.addEventListener("click", () => {
     link.href = `/chat/${attValue}`;
+    localStorage.setItem("id", attValue);
+    // socket.connect();
   });
 });
 

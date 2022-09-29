@@ -21,11 +21,13 @@ router.get("/", async (req, res) => {
     const teamList = await Team.find();
     const feedList = await Feed.find().populate("user");
     const userList = await User.find();
-    console.log(feedList, "hey");
+    const roomList = await Room.find().populate("name");
+    console.log(roomList, "hey");
     res.render("index.hbs", {
       teamList: teamList,
       feedList: feedList,
       userList: userList,
+      roomList: roomList,
     });
   } catch (err) {
     console.log(err);
@@ -86,8 +88,12 @@ router.get("/chat", async (req, res) => {
     // const allRooms = await Room.find();
     // console.log(allRooms);
     const user = await User.findById(req.session.user._id).populate("rooms");
-    console.log(user, "noooooo");
-    res.render("chat.hbs", { user });
+
+    // console.log(user.rooms, "noooooo");
+    // const room = await Room.find().populate("name");
+    // console.log(room, "yass");
+
+    res.render("chat.hbs", { user: user });
   } catch (err) {
     console.log(err);
   }
@@ -126,13 +132,16 @@ router.get("/chat", async (req, res) => {
 });
 router.get("/chat/:id", async (req, res, next) => {
   const { id } = req.params;
+
   try {
-    const allRooms = await Room.findById(id);
-    console.log(allRooms, "");
-    const findARoom = await Room.findById(id).populate("messages");
-    console.log(findARoom);
+    const user = await User.findById(req.session.user._id).populate(
+      "rooms messages"
+    );
+    // console.log(user, "ayyyyy");
+    const findARoom = await Room.findOne({ name: id }).populate("messages");
+    // console.log(findARoom, "yasssfadf");
     res.render("chat.hbs", {
-      allRooms: allRooms,
+      user: user,
       findARoom: findARoom,
     });
   } catch (err) {
@@ -151,7 +160,7 @@ router.get("/profile/:name", async (req, res, next) => {
   const { name } = req.params;
   console.log(name);
   const foundUser = await User.findOne({ name: name });
-  console.log(foundUser);
+  // console.log(foundUser);
   res.render("profile-name.hbs");
 });
 

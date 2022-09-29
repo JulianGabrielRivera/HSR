@@ -21,17 +21,24 @@
 
 {{/each}} --}}
 
+{{!-- {{#each user.rooms}} --}}
 {{#each user.rooms}}
 <div class="eachMessage">
-
-   <a href="/chat/{{id}}">{{name}}</a>
+   <a href="/chat/{{
+    _id}}">{{name}}</a>
 </div>
 {{/each}}
+
 
 
 </div>
 <form id="chat-form">
 <div class="chatRightContainer">
+{{!-- {{#each user.messages}}
+ <p style="color:red">{{msg}}heyeyeyey</p>
+  <p>{{name}}</p>
+  <p>{{time}}</p>
+{{/each}} --}}
 
 <div class="chatMessages">
   {{#each findARoom.messages}}
@@ -41,7 +48,7 @@
   <p>{{time}}</p>
 
   {{/each}}
-<p>Message here</p>
+
 </div>
 
 <div style="display:flex;">

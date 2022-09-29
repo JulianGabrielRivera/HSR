@@ -27,7 +27,8 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  rooms: [{ type: Schema.Types.ObjectId, ref: "Room" }],
+  rooms: [{ type: Schema.Types.ObjectId, ref: "User" }],
+  messages: [{ type: Schema.Types.ObjectId, ref: "Messages" }],
 });
 
 const User = mongoose.model("User", userSchema);

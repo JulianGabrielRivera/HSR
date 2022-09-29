@@ -225,6 +225,7 @@ body h2 {
 }
 
 .chatRightContainer {
+  position: relative;
   display: flex;
   height: 100vh;
   flex-direction: column;
@@ -253,4 +254,8 @@ body h2 {
 
 .fa-solid {
   margin-right: 10px;
+}
+.leftSideMessages {
+  position: absolute;
+  left: 0;
 }

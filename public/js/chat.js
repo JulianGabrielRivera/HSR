@@ -11,29 +11,61 @@ let chatContainer = document.querySelector(".chatLeftContainer");
 const newestRoom = document.createElement("div");
 
 console.log(room);
-const value = localStorage.getItem("myDiv");
-const a = document.createElement("a");
+let value = localStorage.getItem("id");
+let nameValue = localStorage.getItem("name");
 
-a.innerText = value;
-console.log(a);
 // console.log(chatContainer.lastElementChild.innerText);
 let usersArray = Array.from(room);
 
-newestRoom.textContent = value;
 newestRoom.classList.add("eachMessage");
 console.log(newestRoom);
+const a = document.createElement("a");
+a.href = `/chat/${value}`;
+a.innerText = nameValue;
+newestRoom.appendChild(a);
+console.log(a);
+console.log(value);
 chatContainer.appendChild(newestRoom);
-// socket.emit("joinRoom", value);
+socket.emit("joinRoom", nameValue, value);
 
 usersArray.forEach((user) => {
   console.log(user.innerText);
+  user.addEventListener("click", (e) => {
+    console.log(e);
+    socket.connect();
+    // let please = user.href.slice(27);
+    // console.log(please);
 
-  if (user.innerText === value) {
+    nameValue = localStorage.setItem("name", user.innerText);
+    nameValue = localStorage.getItem("name");
+    value = localStorage.setItem("id", user.href.slice(27));
+
+    value = localStorage.getItem("id");
+
+    console.log(value);
+    socket.emit("joinRoom", nameValue, value);
+
+    console.log(user.innerText);
+  });
+  if (user.innerText === nameValue) {
     newestRoom.textContent = "";
     newestRoom.classList.remove("eachMessage");
   }
 });
 console.log(usersArray);
+
+// let roomie = "";
+
+// room.forEach((roomName) => {
+//   roomName.addEventListener("click", (e) => {
+//     // div.innerHTML = "";
+//     // socket.disconnect();
+//     // console.log(roomName);
+//     // roomie = nameValue;
+
+//     socket.emit("joinRoom", nameValue, value);
+//     // console.log(roomie);
+//   });
 // if (chatContainer.lastElementChild.innerText !== value) {
 //   const createARoom = localStorage.getItem("myDiv");
 //   const newestRoom = document.createElement("div");
@@ -128,53 +160,46 @@ console.log(usersArray);
 //   input.focus();
 // });
 
-let roomie = "";
+// let chatContainer = document.querySelector(".chatLeftContainer");
 
-room.forEach((roomName) => {
-  roomName.addEventListener("click", (e) => {
-    // div.innerHTML = "";
-    // socket.disconnect();
-    console.log(roomName);
-    roomie = roomName.innerText;
+// const createARoom = localStorage.getItem("myDiv");
+// const newestRoom = document.createElement("div");
 
-    socket.connect();
-    socket.emit("joinRoom", roomie);
-    console.log(roomie);
-  });
+// newestRoom.textContent = createARoom;
+// newestRoom.classList.add("eachMessage");
+// console.log(newestRoom);
+// chatContainer.appendChild(newestRoom);
+// socket.emit("joinRoom", createARoom);
 
-  // let chatContainer = document.querySelector(".chatLeftContainer");
+// roomName.addEventListener("click", () => {
+//   socket.disconnect("hi", () => {
+//     console.log("no");
+//   });
+//   // socket.on("disconnect", () => {
+//   //   console.log("yea"); // undefined
+//   // });
+//   socket.emit("joinRoom");
+//   div.innerHTML = "";
+// });
+// });
+// let please = "";
+// usersArray.forEach((user) => {
+//   please = user.href.slice(27);
+//   console.log(user.innerText);
 
-  // const createARoom = localStorage.getItem("myDiv");
-  // const newestRoom = document.createElement("div");
+//   //   Emit message to server
 
-  // newestRoom.textContent = createARoom;
-  // newestRoom.classList.add("eachMessage");
-  // console.log(newestRoom);
-  // chatContainer.appendChild(newestRoom);
-  // socket.emit("joinRoom", createARoom);
+//   // input.value = "";
+//   // input.focus();
+// });
+console.log(value);
 
-  // roomName.addEventListener("click", () => {
-  //   socket.disconnect("hi", () => {
-  //     console.log("no");
-  //   });
-  //   // socket.on("disconnect", () => {
-  //   //   console.log("yea"); // undefined
-  //   // });
-  //   socket.emit("joinRoom");
-  //   div.innerHTML = "";
-  // });
-});
 chatForm.addEventListener("submit", (event) => {
   event.preventDefault();
-
   const msg = input.value;
 
-  //   Emit message to server
-  socket.emit("message", msg, value);
-  console.log(msg);
   console.log(value);
-  // input.value = "";
-  // input.focus();
+  socket.emit("message", msg, value);
 });
 socket.on("chatMessage", (msg) => {
   // socket.disconnect();
@@ -190,6 +215,7 @@ socket.on("chatMessage", (msg) => {
   input.focus();
   socket.connect();
 });
+
 // let chatContainer = document.querySelector(".chatLeftContainer");
 
 // const createARoom = localStorage.getItem("myDiv");
@@ -224,6 +250,5 @@ socket.on("chatMessage", (msg) => {
 //   input.value = "";
 //   input.focus();
 // });
-{
-  /* <script src="https://unpkg.com/axios/dist/axios.min.js"></script>; */
-}
+// });
+/* <script src="https://unpkg.com/axios/dist/axios.min.js"></script>; */
