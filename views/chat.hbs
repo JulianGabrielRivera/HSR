@@ -33,32 +33,47 @@
 
 </div>
 <form id="chat-form">
+  
 <div class="chatRightContainer">
+    
+
 {{!-- {{#each user.messages}}
  <p style="color:red">{{msg}}heyeyeyey</p>
   <p>{{name}}</p>
   <p>{{time}}</p>
 {{/each}} --}}
+<div>
+  <p>Current users in room:</p>
+</div>
+<div class="usersInRoom">
+  {{#each usersInRoom as |user|}}
+  
+<p>{{user}}</p>
+{{/each}}
+
+</div>
 
 <div class="chatMessages">
+
   {{#each findARoom.messages}}
   
-  <p>{{msg}}</p>
-  <p>{{name}}</p>
-  <p>{{time}}</p>
+  <p style="position:relative">{{msg}} {{name}} <span style="position:absolute; bottom:0; right:0;">{{time}}</span></p>
+
+
 
   {{/each}}
 
 </div>
 
-<div style="display:flex;">
+
+<div class="sendMessage">
 <input type="text" placeholder="Message..." class="messageInput"/>
 <button>Send</button>
-</div>
-
 
 
 
 </div>
 </form>
+</div>
+
 </div>

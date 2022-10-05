@@ -20,9 +20,19 @@
 
 </head>
 <body>
+  <div class="auth">
+    <div>
+    <h1>Title</h1>
+    </div>
+    <div>
   <a href="/signup">Signup</a>
 
 <a href="/login">Login</a>
+</div>
+ <form id="logout-form" action="/logout" method="POST">
+    <button type="submit">Logout</button>
+  </form>
+</div>
 
     {{{body}}}
     <script src="/socket.io/socket.io.js"></script>

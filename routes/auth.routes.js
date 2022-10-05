@@ -134,6 +134,8 @@ router.get("/chat/:id", async (req, res, next) => {
   const { id } = req.params;
 
   try {
+    const usersInRoom = await Room.findOne({ name: id });
+    console.log(usersInRoom, "ppopopo");
     const user = await User.findById(req.session.user._id).populate(
       "rooms messages"
     );
@@ -143,6 +145,7 @@ router.get("/chat/:id", async (req, res, next) => {
     res.render("chat.hbs", {
       user: user,
       findARoom: findARoom,
+      usersInRoom: usersInRoom.users,
     });
   } catch (err) {
     console.log(err);
