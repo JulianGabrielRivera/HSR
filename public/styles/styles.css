@@ -317,3 +317,45 @@ body h2 {
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.3);
 }
+.loginTitle {
+  display: flex;
+  justify-content: center;
+  color: white;
+}
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: center; */
+  color: white;
+  height: 300px;
+}
+.loginForm input {
+  width: 100%;
+  margin-top: 10px;
+}
+.loginForm button {
+  margin-top: 10px;
+
+  background-color: black;
+  color: white;
+  border-radius: 5px;
+  width: 100px;
+}
+.signupForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+}
+.signupForm input {
+  margin-top: 10px;
+}
+.signupForm button {
+  background-color: black;
+  color: white;
+  border-radius: 5px;
+  width: 100px;
+  margin-top: 10px;
+  height: 30px;
+}
