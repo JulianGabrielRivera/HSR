@@ -70,9 +70,10 @@ body h2 {
 }
 
 .teamImgMemories {
-  border: 1px dashed black;
+  border: 1.5px dashed white;
   width: 300px;
   height: 300px;
+  text-align: center;
 }
 
 .donateContainer {
@@ -104,7 +105,7 @@ body h2 {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px dashed black;
+  border: 1.5px dashed white;
   width: 500px;
   max-width: 500px;
   height: 500px;
@@ -112,18 +113,19 @@ body h2 {
 #leftContainer {
   display: flex;
   flex-direction: column;
-  height: 90%;
-  width: 300px;
-  max-width: 300px;
+
+  width: 30%;
+
   border: 3px solid black;
   color: white;
   background: rgba(255, 255, 255, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1.5px dashed white;
   border-radius: 7px;
   font-weight: 600px;
+  height: 100%;
 }
 #leftContainer a {
-  margin-top: 5px;
+  margin-top: 15px;
   margin-bottom: 15px;
   text-decoration: none;
   color: white;
@@ -183,23 +185,42 @@ body h2 {
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 7px;
   overflow-y: scroll;
-  position: relative;
+  /* position: relative; */
 }
 #rightContainer a {
   color: white;
   text-decoration: none;
 }
-.feedContainer {
+.feedDiv {
+  /* justify-content: space-around; */
+  width: 100vw;
+  height: 90vh;
   display: flex;
-  max-width: 50%;
+  justify-content: space-evenly;
+  /* height: 95%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3); */
+}
+.feedContainer {
+  /* display: flex;
+  width: 100%;
   flex-wrap: wrap;
-  height: 90%;
+  height: 80vh; */
+  /* display: flex;
+  justify-content: center; */
   /* justify-content: center; */
+  width: 50%;
+  height: 100%;
 }
 .feedImages {
   border-radius: 5px;
-  height: 200px;
-  width: 200px;
+  height: 20%;
+  width: 30%;
+  margin: 0.7%;
+  border: 1.5px dashed white;
 }
 .mostRecent {
   text-align: center;
@@ -253,11 +274,17 @@ body h2 {
 }
 #chat-form {
   width: 90vw;
+  height: 80vh;
+  overflow-y: scroll;
 }
-
+.mainRightSide {
+  display: flex;
+  flex-direction: column;
+  height: 90vh;
+}
 .chatRightContainer {
   display: flex;
-  height: 100vh;
+  height: 90vh;
 
   justify-content: space-between;
   max-width: 100%;
@@ -278,10 +305,11 @@ body h2 {
   flex-direction: column; */
 }
 .chatMessages p {
-  margin-right: 15px;
+  /* margin-right: 15px; */
   /* width: 300px; */
+  margin-bottom: 10px;
   height: 100px;
-  max-width: 300px;
+  width: 200px;
   word-wrap: break-word;
   color: white;
   border-radius: 6px;
@@ -307,15 +335,21 @@ body h2 {
 .sendMessage {
   display: flex;
   width: 100%;
+
+  /* right: 0; */
   align-self: flex-end;
+  right: 70px;
 }
-.feedDiv {
-  height: 95%;
+.sendMessage input {
   display: flex;
-  justify-content: space-around;
-  align-items: center;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  width: 40%;
+  align-self: flex-end;
+  /* position: absolute;
+  right: 60px; */
+}
+.sendMessage button {
+  /* position: absolute;
+  right: 7px; */
 }
 .loginTitle {
   display: flex;
@@ -348,6 +382,11 @@ body h2 {
   align-items: center;
   color: white;
 }
+.signupForm h1 {
+  display: flex;
+  justify-content: center;
+  color: white;
+}
 .signupForm input {
   margin-top: 10px;
 }
@@ -358,4 +397,20 @@ body h2 {
   width: 100px;
   margin-top: 10px;
   height: 30px;
+}
+
+.memoryDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+}
+
+.layoutNav a {
+  margin: 25px;
+}
+.teamh1 {
+  color: white;
+  width: 100%;
+  text-align: center;
 }

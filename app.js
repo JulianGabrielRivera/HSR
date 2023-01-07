@@ -156,6 +156,15 @@ io.on("connection", (socket) => {
 app.use(bodyParser.urlencoded({ extended: false }));
 
 //  setting up my auth
+app.use((req, res, next) => {
+  if (req.session.user === undefined) {
+    app.set("view options", { layout: "loggedout-layout" });
+  } else {
+    app.set("view options", { layout: "loggedin-layout" });
+  }
+
+  next();
+});
 
 const authRoutes = require("./routes/auth.routes");
 app.use("/", authRoutes);
