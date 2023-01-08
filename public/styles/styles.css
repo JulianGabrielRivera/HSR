@@ -228,8 +228,8 @@ body h2 {
 
 .mainChatContainer {
   display: flex;
-  justify-content: center;
-  width: 100%;
+  justify-content: space-evenly;
+  width: 100vw;
 }
 .chatLeftContainer {
   display: flex;
@@ -249,9 +249,10 @@ body h2 {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background: gray;
+  /* background: gray; */
   height: 50px;
-  border-bottom: 1px solid black;
+  border: 1px dashed white;
+  border-radius: 7px;
 }
 .eachMessage a {
   color: white;
@@ -259,9 +260,9 @@ body h2 {
   margin-left: 10px;
   text-decoration: none;
 }
-.usersInRoom {
+/* .usersInRoom {
   flex: 49%;
-}
+} */
 .usersInRoom p {
   margin-left: 20px;
   text-align: center;
@@ -272,20 +273,22 @@ body h2 {
   height: 50px;
   width: 50px;
 }
-#chat-form {
+/* #chat-form {
   width: 90vw;
   height: 80vh;
   overflow-y: scroll;
-}
+} */
 .mainRightSide {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   height: 90vh;
+  width: 90vw;
+  overflow-y: scroll;
 }
 .chatRightContainer {
   display: flex;
-  height: 90vh;
-
+  height: 80vh;
+  width: 50vw;
   justify-content: space-between;
   max-width: 100%;
   text-align: right;
@@ -293,31 +296,33 @@ body h2 {
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 7px;
-  overflow-y: scroll;
+  position: relative;
 }
 .chatMessages {
-  flex: 49%;
+  /* flex: 49%; */
   display: flex;
+  height: 100%;
   flex-direction: column;
   align-items: flex-end;
+  overflow-y: scroll;
 
   /* display: flex;
   flex-direction: column; */
 }
-.chatMessages p {
+.newMessage {
   /* margin-right: 15px; */
   /* width: 300px; */
   margin-bottom: 10px;
-  height: 100px;
-  width: 200px;
+
+  width: 500px;
   word-wrap: break-word;
   color: white;
   border-radius: 6px;
-  border: 1px solid black;
+  border: 1px dashed white;
   background-color: black;
 }
 .chatRightContainer input {
-  height: 40px;
+  height: 50px;
   width: 100%;
 }
 .individualTeam {
@@ -335,21 +340,26 @@ body h2 {
 .sendMessage {
   display: flex;
   width: 100%;
-
+  position: absolute;
   /* right: 0; */
   align-self: flex-end;
-  right: 70px;
+  /* right: 70px; */
+  /* margin-top: 40px;
+  margin-left: 100px; */
+  bottom: 0;
+  left: 20;
 }
 .sendMessage input {
   display: flex;
-  width: 40%;
+  position: absolute;
+  width: 70%;
   align-self: flex-end;
   /* position: absolute;
   right: 60px; */
 }
 .sendMessage button {
-  /* position: absolute;
-  right: 7px; */
+  position: absolute;
+  right: 7px;
 }
 .loginTitle {
   display: flex;
@@ -405,9 +415,19 @@ body h2 {
   align-items: center;
   color: white;
 }
-
+.layoutNav {
+  display: flex;
+  align-items: center;
+}
 .layoutNav a {
   margin: 25px;
+}
+#logout-form button {
+  background: transparent;
+  color: white;
+  border: none;
+  font-size: 1rem;
+  font-weight: bold;
 }
 .teamh1 {
   color: white;

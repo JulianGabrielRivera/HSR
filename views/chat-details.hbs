@@ -1,6 +1,6 @@
 
 <div class="mainChatContainer">
-     <section id="leftContainer">
+     {{!-- <section id="leftContainer">
         <div class="topPart"></div>
         <h1>Onlyteams</h1>
         <a href="/">Find Teams</a>
@@ -9,7 +9,7 @@
         <a href="/createteam">Create A Team</a>
         <a href="/memories">Post A Memory</a>
 
-      </section>
+      </section> --}}
 
 <div class="chatLeftContainer">
 
@@ -32,24 +32,34 @@
 </div>
 <form id="chat-form">
 <div class="chatRightContainer">
+<div class="usersInRoom">
+  {{#each usersInRoom as |user|}}
+  
+<p>{{user}}</p>
+{{/each}}
 
+</div>
 <div class="chatMessages">
   {{#each findARoom.messages}}
-  
+  <div class="newMessage">
   <p>{{msg}}</p>
   <p>{{name}}</p>
   <p>{{time}}</p>
-
+</div>
   {{/each}}
 {{!-- <p>Message here</p> --}}
 
-</div>
-
-
-
-
+<input type="text" placeholder="Message..." class="messageInput"/>
+<button>Send</button>
 
 </div>
+
+
 </form>
+</div>
+
+
+
+
 
 </div>

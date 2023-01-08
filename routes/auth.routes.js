@@ -88,7 +88,7 @@ router.get("/chat", async (req, res) => {
     // const allRooms = await Room.find();
     // console.log(allRooms);
     const user = await User.findById(req.session.user._id).populate("rooms");
-
+    console.log(user, "hey");
     // console.log(user.rooms, "noooooo");
     // const room = await Room.find().populate("name");
     // console.log(room, "yass");
@@ -142,7 +142,7 @@ router.get("/chat/:id", async (req, res, next) => {
     // console.log(user, "ayyyyy");
     const findARoom = await Room.findOne({ name: id }).populate("messages");
     // console.log(findARoom, "yasssfadf");
-    res.render("chat.hbs", {
+    res.render("chat-details.hbs", {
       user: user,
       findARoom: findARoom,
       usersInRoom: usersInRoom.users,

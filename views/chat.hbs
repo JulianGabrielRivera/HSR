@@ -1,15 +1,15 @@
 
 <div class="mainChatContainer">
-     <section id="leftContainer">
+     {{!-- <section id="leftContainer">
         <div class="topPart"></div>
-       
+        <h1>Onlyteams</h1>
         <a href="/">Find Teams</a>
         <a href="/feed">Feed</a>
         <a href="/chat">Messages</a>
         <a href="/createteam">Create A Team</a>
         <a href="/memories">Post A Memory</a>
 
-      </section>
+      </section> --}}
 
 <div class="chatLeftContainer">
 
@@ -21,31 +21,17 @@
 
 {{/each}} --}}
 
-{{!-- {{#each user.rooms}} --}}
 {{#each user.rooms}}
 <div class="eachMessage">
-   <a href="/chat/{{
-    _id}}">{{name}}</a>
+
+   <a href="/chat/{{id}}">{{name}}</a>
 </div>
 {{/each}}
 
 
-
 </div>
-<div class="mainRightSide">
 <form id="chat-form">
-  
 <div class="chatRightContainer">
-    
-
-{{!-- {{#each user.messages}}
- <p style="color:red">{{msg}}heyeyeyey</p>
-  <p>{{name}}</p>
-  <p>{{time}}</p>
-{{/each}} --}}
-<div>
-  <p>Current users in room:</p>
-</div>
 <div class="usersInRoom">
   {{#each usersInRoom as |user|}}
   
@@ -53,34 +39,25 @@
 {{/each}}
 
 </div>
-
 <div class="chatMessages">
-
   {{#each findARoom.messages}}
-  
-  <p style="position:relative">{{msg}} {{name}} <span style="position:absolute; bottom:0; right:0;">{{time}}</span></p>
-
-
-
+  <div class="newMessage">
+  <p>{{msg}}</p>
+  <p>{{name}}</p>
+  <p>{{time}}</p>
+</div>
   {{/each}}
-  
+{{!-- <p>Message here</p> --}}
+
 
 </div>
-
 
 
 </form>
+</div>
+
+
 
 
 
 </div>
-<div class="sendMessage">
-<input type="text" placeholder="Message..." class="messageInput"/>
-<button>Send</button>
-
-</div>
-
-
-</div>
-</div>
-

@@ -195,7 +195,6 @@ console.log(usersArray);
 console.log(value);
 
 chatForm.addEventListener("submit", (event) => {
-  event.preventDefault();
   const msg = input.value;
 
   console.log(value);
