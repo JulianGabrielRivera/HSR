@@ -13,6 +13,7 @@ const {
   isNotAuthenticated,
 } = require("../middlewares/auth.middleware");
 const session = require("express-session");
+const { response } = require("express");
 
 router.get("/createteam", async (req, res) => {
   res.render("create-team.hbs");
@@ -34,32 +35,23 @@ router.post("/createteam", async (req, res) => {
     console.log(err);
   }
 });
-router.get("/teamplayers", async (req, res) => {
-  try {
-    const allVikings = await User.find();
-    console.log(allVikings);
-    res.render("team-players.hbs", { allVikings });
-  } catch (err) {
-    console.log(err);
-  }
-});
+// router.get("/teamplayers", async (req, res) => {
+//   try {
+//     const allVikings = await User.find();
+//     console.log(allVikings);
+//     res.render("team-players.hbs", { allVikings });
+//   } catch (err) {
+//     console.log(err);
+//   }
+// });
 router.get("/teamplayers/:id", async (req, res) => {
-  const arr = [];
   const { id } = req.params;
   try {
-    const players = await User.find();
-    const team = await Team.findById(id);
-    players.forEach((player) => {
-      if (player.teamName === team.teamName) {
-        arr.push(player);
-      }
-    });
-    console.log(arr, "hey");
+    const team = await Team.findById(id).populate("players");
 
     console.log(team);
-    console.log(players);
 
-    res.render("team.hbs", { team });
+    res.render("team.hbs", { team: team.players });
   } catch (err) {
     console.log(err);
   }
@@ -96,6 +88,25 @@ router.post("/create-checkout-session", async (req, res) => {
     });
     console.log(session);
     res.redirect(303, session.url);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+router.post("/teamplayers/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const playerJoin = await Team.findByIdAndUpdate(
+      id,
+      { $addToSet: { players: req.session.user._id } },
+      { new: true }
+    );
+    console.log(playerJoin);
+    const team = await Team.findById(id).populate("players");
+
+    console.log(team);
+
+    res.render("team.hbs", { team: team.players });
   } catch (err) {
     console.log(err);
   }

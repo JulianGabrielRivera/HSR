@@ -5,8 +5,10 @@
     <main class="homePage">
 
       <section id="leftContainer">
-        <div class="topPart"></div>
-      
+        <div class="topPart">
+          <p>PlayerDex: {{totalUsers}}</p>
+        </div>
+      <a href="/profile">My Profile</a>
         <a href="/">Find Teams</a>
         <a href="/feed">Feed</a>
         <a href="/chat">Messages</a>
@@ -16,7 +18,9 @@
       </section>
 
       <section id="middleContainer">
-        <div class="topPart"></div>
+        <div class="topPart">
+          <p >TeamDex: {{totalTeams}}</p>
+        </div>
 
         <h1>Find Teams</h1>
         <select name="team" class="team" value="{{teamName}}{{tag}}{{location}}{{division}}" >
@@ -38,6 +42,9 @@
               <p>{{tag}}</p>
               <p>{{location}}</p>
               <p>{{division}}</p>
+              <form action="/teamplayers/{{_id}}" method="POST">
+              <button >Join</button>
+              </form>
             </div>
 
           {{/each}}
@@ -46,7 +53,9 @@
       </section>
 
       <section id="rightContainer">
-        <div class="topPart"></div>
+        <div class="topPart">
+          
+        </div>
 
         <h1 class="mostRecent">Most Recent Posts</h1>
         {{#each feedList}}

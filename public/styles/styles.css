@@ -139,17 +139,31 @@ body h2 {
   background: rgba(255, 255, 255, 0.2);
   border-radius: 7px;
 }
+
+.topPart p {
+  margin-left: 20px;
+  font-size: 14px;
+}
+
 #middleContainer {
+  display: flex;
+  flex-direction: column;
   border: 3px solid black;
-  max-width: 600px;
-  width: 600px;
-  text-align: center;
+  width: 50%;
   margin-left: 10px;
   background: rgba(255, 255, 255, 0.4);
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 7px;
-  color: black;
+  color: white;
   font-weight: bold;
+  height: 100%;
+}
+#middleContainer h1 {
+  text-align: center;
+}
+.team {
+  width: 20%;
+  margin: 0 auto;
 }
 .homePage {
   color: white;

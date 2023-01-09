@@ -22,12 +22,15 @@ router.get("/", async (req, res) => {
     const feedList = await Feed.find().populate("user");
     const userList = await User.find();
     const roomList = await Room.find().populate("name");
+
     console.log(roomList, "hey");
     res.render("index.hbs", {
       teamList: teamList,
       feedList: feedList,
       userList: userList,
       roomList: roomList,
+      totalUsers: userList.length,
+      totalTeams: teamList.length,
     });
   } catch (err) {
     console.log(err);
@@ -153,6 +156,7 @@ router.get("/chat/:id", async (req, res, next) => {
 });
 
 router.get("/profile", (req, res, next) => {
+  console.log(req.session.user);
   if (req.session.user) {
     res.render("profile.hbs", { username: req.session.user.username });
   } else {

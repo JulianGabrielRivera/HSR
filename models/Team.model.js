@@ -15,6 +15,7 @@ const teamSchema = new Schema({
   comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
   location: String,
   division: String,
+  players: [{ type: Schema.Types.ObjectId, ref: "User" }],
 });
 
 const Team = mongoose.model("Team", teamSchema);
