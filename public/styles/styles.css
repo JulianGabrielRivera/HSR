@@ -271,9 +271,12 @@ body h2 {
   margin-left: 10px;
   text-decoration: none;
 }
-/* .usersInRoom {
+.usersInRoom {
+  display: flex;
   flex: 49%;
-} */
+  flex-wrap: wrap;
+  align-content: flex-start;
+}
 .usersInRoom p {
   margin-left: 20px;
   text-align: center;
@@ -281,7 +284,7 @@ body h2 {
   color: white;
   border: 1px solid black;
   background-color: black;
-  height: 50px;
+  height: 30px;
   width: 50px;
 }
 /* #chat-form {
@@ -310,7 +313,7 @@ body h2 {
   overflow: scroll;
 }
 .chatMessages {
-  /* flex: 49%; */
+  flex: 49%;
   display: flex;
   height: 100%;
   flex-direction: column;
@@ -324,7 +327,7 @@ body h2 {
   /* width: 300px; */
   margin-bottom: 10px;
 
-  width: 500px;
+  width: 300px;
   word-wrap: break-word;
   color: white;
   border-radius: 6px;
@@ -363,14 +366,19 @@ body h2 {
 .sendMessage input {
   display: flex;
   /* position: absolute; */
-  width: 91%;
+  width: 95%;
+
   align-self: flex-end;
   /* position: absolute;
   right: 60px; */
 }
-/* .sendMessage button {
-  position: absolute;
-} */
+.sendMessage button {
+  background: black;
+  color: white;
+  border: 1px solid white;
+  padding: 0;
+  width: 15%;
+}
 .loginTitle {
   display: flex;
   justify-content: center;
