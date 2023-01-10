@@ -57,6 +57,7 @@ router.post("/signup", async (req, res, next) => {
       teamName,
       alias,
     });
+    res.redirect("/login");
   } catch (err) {
     console.log(err);
   }

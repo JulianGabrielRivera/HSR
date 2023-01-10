@@ -21,8 +21,31 @@
         <div class="topPart">
           <p >TeamDex: {{totalTeams}}</p>
         </div>
+{{#if error}}
+<h1 class="red">{{error}}</h1>
 
+{{/if}}
+{{#unless error}}
         <h1>Find Teams</h1>
+        {{/unless}}
+
+        {{#if error}}
+ <select name="team" class="team" hidden value="{{teamName}}{{tag}}{{location}}{{division}}" >
+          {{#each teamList}}
+            <option
+              value="{{teamName}},{{tag}},{{location}},{{division}}"
+              class="teamOption"
+              name="teamOne"
+            >{{teamName}}</option>
+
+          {{/each}}
+        </select>
+        {{/if}}
+
+        {{#unless error}}
+
+
+
         <select name="team" class="team" value="{{teamName}}{{tag}}{{location}}{{division}}" >
           {{#each teamList}}
             <option
@@ -33,6 +56,8 @@
 
           {{/each}}
         </select>
+        {{/unless}}
+       
 
         <div class="teamsHere">
 

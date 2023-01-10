@@ -456,3 +456,12 @@ body h2 {
 .profileContainer {
   height: 100vh;
 }
+.red {
+  color: black;
+}
+.signupPage {
+  height: 100vh;
+}
+.loginPage {
+  height: 100vh;
+}

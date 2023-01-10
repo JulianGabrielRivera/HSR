@@ -29,6 +29,7 @@ const userSchema = new Schema({
   },
   rooms: [{ type: Schema.Types.ObjectId, ref: "User" }],
   messages: [{ type: Schema.Types.ObjectId, ref: "Messages" }],
+  teams: [{ type: Schema.Types.ObjectId, ref: "Team" }],
 });
 
 const User = mongoose.model("User", userSchema);
