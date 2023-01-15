@@ -36,6 +36,8 @@
   {{#each usersInRoom as |user|}}
   
 <p>{{user}}</p>
+  <button type="submit" id="kick" data-value="{{user}}">kick</button>
+
 {{/each}}
 
 </div>
@@ -63,3 +65,6 @@
 
 
 </div>
+<script src='https://unpkg.com/axios/dist/axios.min.js'></script>
+                <script src="../js/chat2.js"></script>
+

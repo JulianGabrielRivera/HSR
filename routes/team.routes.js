@@ -93,7 +93,7 @@ router.post("/create-checkout-session", async (req, res) => {
   }
 });
 
-router.post("/teamplayers/:id", async (req, res) => {
+router.post("/teamplayers/:id", isAuthenticated, async (req, res) => {
   const { id } = req.params;
   console.log(req.session.user, "hi");
   try {
@@ -102,7 +102,9 @@ router.post("/teamplayers/:id", async (req, res) => {
       { $addToSet: { players: req.session.user._id } },
       { new: true }
     );
-
+    if (req.session.user.teams.length > 2) {
+      res.render("index.hbs", { error: "cannot join more than 2 teams" });
+    }
     const addTeam = await User.findByIdAndUpdate(
       req.session.user._id,
       { $addToSet: { teams: id } },
@@ -110,9 +112,7 @@ router.post("/teamplayers/:id", async (req, res) => {
     );
 
     req.session.user = addTeam;
-    if (req.session.user.teams.length > 2) {
-      res.render("index.hbs", { error: "cannot join more than 2 teams" });
-    }
+
     console.log(req.session.user);
     console.log(addTeam, "yo");
     console.log(playerJoin);

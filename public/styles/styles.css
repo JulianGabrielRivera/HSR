@@ -276,6 +276,7 @@ body h2 {
   flex: 49%;
   flex-wrap: wrap;
   align-content: flex-start;
+  align-items: center;
 }
 .usersInRoom p {
   margin-left: 20px;
@@ -286,6 +287,15 @@ body h2 {
   background-color: black;
   height: 30px;
   width: 50px;
+}
+#kick {
+  background: red;
+  color: white;
+  font-weight: bold;
+  height: 20px;
+  width: 40px;
+  margin-left: 5px;
+  border-radius: 5px;
 }
 /* #chat-form {
   width: 90vw;
@@ -463,5 +473,8 @@ body h2 {
   height: 100vh;
 }
 .loginPage {
+  height: 100vh;
+}
+.teamPage {
   height: 100vh;
 }

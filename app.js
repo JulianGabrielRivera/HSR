@@ -8,13 +8,17 @@ const session = require("express-session");
 const path = require("path");
 const http = require("http");
 const socketio = require("socket.io");
-require("dotenv/config");
+
 const formatMessage = require("./utils/messages");
 const moment = require("moment");
 const Messages = require("./models/Messages.model");
 const Room = require("./models/Room.model");
 const User = require("./models/User.model");
-
+const app = express();
+require("dotenv/config");
+// require("/config")(app);
+require("./config/cloudinary.config");
+console.log(process.env.CLOUDINARY_NAME);
 mongoose
   .connect("mongodb://localhost/authExample")
   .then((x) => {
@@ -22,9 +26,9 @@ mongoose
   })
   .catch((err) => console.log(err));
 // this gives us our web server.
-const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
+// require("./config")(app);
 
 app.set("view engine", hbs);
 // dirname is whatever the file path app.js is then look in views folder.
@@ -68,31 +72,32 @@ io.on("connection", (socket) => {
 
   socket.on("message", async (msg, roomie) => {
     const sesh = socket.request.session.user.name;
-    console.log(roomie, "maybe");
-    console.log(sesh);
+    // console.log(roomie, "maybe");
+    // console.log(sesh);
     try {
       const messageCreated = await Messages.create({
         msg: msg,
         name: sesh,
         time: moment().format("h:mm a"),
       });
-      console.log(roomie);
+      // console.log(roomie);
       io.emit("chatMessage", messageCreated);
-      console.log(roomie);
-      console.log(messageCreated, "heyyyy");
+      // console.log(roomie);
+      // console.log(messageCreated, "heyyyy");
       const updatedRoom = await Room.findOneAndUpdate(
         { name: roomie },
         { $push: { messages: messageCreated }, $addToSet: { users: sesh } },
         { new: true }
       );
+      console.log("yo");
       const updatedCurrentUser = await User.findOneAndUpdate(
         socket.request.session.user._id,
         { $push: { messages: messageCreated } },
         { new: true }
       );
-      console.log(updatedCurrentUser, "yeasd");
+      // console.log(updatedCurrentUser, "yeasd");
 
-      console.log(updatedRoom, "hey");
+      // console.log(updatedRoom, "hey");
     } catch (err) {
       console.log(err);
     }
@@ -111,25 +116,23 @@ io.on("connection", (socket) => {
       console.log(socket.id, "connect"); // undefined
     });
 
-    console.log("joined room", roomie, value, "heyyyy");
-    console.log(socket.request.session.user.name, "l");
+    // console.log("joined room", roomie, value, "heyyyy");
+    // console.log(socket.request.session.user.name, "l");
     let objectId = mongoose.Types.ObjectId(value);
 
     try {
       const foundRoom = await Room.findOne({ name: objectId });
-      console.log(foundRoom);
+      // console.log(foundRoom, "current room");
       if (!foundRoom) {
         const createdRoom = await Room.create({
           name: value,
         });
-        console.log(createdRoom, "forrrreal");
-        console.log(roomie, "roomaso");
+
         const updateUser = await User.findOneAndUpdate(
           socket.request.session.user.name,
           { $addToSet: { rooms: createdRoom.name } },
           { new: true }
         );
-        console.log(updateUser, "lllllll");
         socket.join(createdRoom);
       }
 
@@ -138,14 +141,16 @@ io.on("connection", (socket) => {
         { $addToSet: { rooms: foundRoom.name } },
         { new: true }
       );
-      console.log(updateUser, "lllllll");
-      console.log(objectId);
+      // console.log(updateUser, "lllllll");
+      // console.log(objectId);
+      // if (foundRoom.users < 2) {
       const pushUserToRoom = await Room.findOneAndUpdate(
         { name: objectId },
-        { $addToSet: { users: socket.request.session.user.name } },
+        { $addToSet: { users: socket.request.session.user._id } },
         { new: true }
       );
-      console.log(pushUserToRoom, " jackkkk");
+      // }
+      // console.log(socket.request.session.user, "nnnnnnnnn");
     } catch (err) {
       console.log(err, "yooy");
     }

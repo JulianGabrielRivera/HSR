@@ -87,7 +87,7 @@ router.post("/login", async (req, res, next) => {
   }
 });
 
-router.get("/chat", async (req, res) => {
+router.get("/chat", isAuthenticated, async (req, res) => {
   try {
     // const allRooms = await Room.find();
     // console.log(allRooms);
@@ -134,12 +134,11 @@ router.get("/chat", async (req, res) => {
 
   // });
 });
-router.get("/chat/:id", async (req, res, next) => {
+router.get("/chat/:id", isAuthenticated, async (req, res, next) => {
   const { id } = req.params;
-
   try {
     const usersInRoom = await Room.findOne({ name: id });
-    console.log(usersInRoom, "ppopopo");
+    // console.log(usersInRoom, "ppopopo");
     const user = await User.findById(req.session.user._id).populate(
       "rooms messages"
     );
@@ -155,14 +154,54 @@ router.get("/chat/:id", async (req, res, next) => {
     console.log(err);
   }
 });
+router.post("/chat/:delete", isAuthenticated, async (req, res, next) => {
+  console.log("hi");
+  console.log(req.session.user._id);
+  console.log(req.params, "yoyoyo");
+  console.log(req.params.delete, "yessss");
+  Room.findOne({ name: req.session.user._id })
 
-router.get("/profile", (req, res, next) => {
+    .then((foundRoom) => {
+      console.log(foundRoom.users, "yoo");
+      let newArr = [];
+      foundRoom.users.forEach((user) => {
+        if (user !== req.params.delete) {
+          newArr.push(user);
+        }
+        console.log(newArr);
+        // console.log(user);
+        // console.log(req.params.delete, "second");
+      });
+      Room.findOneAndUpdate(
+        { name: req.session.user._id },
+        { users: newArr },
+        { new: true }
+      )
+        .then((updatedUsers) => {
+          console.log(updatedUsers);
+        })
+        .catch((err) => console.log(err));
+    })
+    .catch((err) => console.log(err));
+  // Room.findOne(req.params.delete)
+  //   .then((foundRoom) => {
+  //     // foundRoom.users
+  //     console.log(foundRoom.users);
+  //   })
+  //   .catch((err) => console.log(err));
+  // if(req.session.user){
+  // Room.findOneAndDelete(req.params.delete)
+  //   .then((res) => {
+  //     console.log(res, "nice!");
+  //   })
+  //   .catch((err) => console.log(err));
+  // }
+});
+
+router.get("/profile", isAuthenticated, (req, res, next) => {
   console.log(req.session.user);
-  if (req.session.user) {
-    res.render("profile.hbs", { username: req.session.user.username });
-  } else {
-    res.render("profile.hbs", { username: "Anonymous" });
-  }
+
+  res.render("profile.hbs", { username: req.session.user.username });
 });
 router.get("/profile/:name", async (req, res, next) => {
   const { name } = req.params;
