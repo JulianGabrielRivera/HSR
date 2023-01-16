@@ -33,10 +33,11 @@
 <form id="chat-form">
 <div class="chatRightContainer">
 <div class="usersInRoom">
-  {{#each usersInRoom as |user|}}
+  {{#each usersInRoom}}
+   {{!-- {{#each usersInRoom as |user|}} --}}
   
-<p>{{user}}</p>
-  <button type="submit" id="kick" data-value="{{user}}">kick</button>
+<p>{{name}}</p>
+  <button type="submit" id="kick" data-value="{{id}}">kick</button>
 
 {{/each}}
 

@@ -27,6 +27,7 @@ router.post(
         image: req.file.path,
         user: username,
       });
+      res.redirect("/");
       console.log(imageCreated);
     } catch (err) {
       console.log(err);

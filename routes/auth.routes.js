@@ -148,6 +148,7 @@ router.get("/chat/:id", isAuthenticated, async (req, res, next) => {
     res.render("chat-details.hbs", {
       user: user,
       findARoom: findARoom,
+      // mess with .users to get a new chatroom to work
       usersInRoom: usersInRoom.users,
     });
   } catch (err) {
@@ -156,19 +157,20 @@ router.get("/chat/:id", isAuthenticated, async (req, res, next) => {
 });
 router.post("/chat/:delete", isAuthenticated, async (req, res, next) => {
   console.log("hi");
-  console.log(req.session.user._id);
+  console.log(req.session.user);
   console.log(req.params, "yoyoyo");
   console.log(req.params.delete, "yessss");
   Room.findOne({ name: req.session.user._id })
+    .populate("name")
 
     .then((foundRoom) => {
-      console.log(foundRoom.users, "yoo");
+      console.log(foundRoom, "yoo");
       let newArr = [];
       foundRoom.users.forEach((user) => {
-        if (user !== req.params.delete) {
+        if (user.id !== req.params.delete) {
           newArr.push(user);
         }
-        console.log(newArr);
+        // console.log(newArr, "hey");
         // console.log(user);
         // console.log(req.params.delete, "second");
       });
@@ -178,7 +180,9 @@ router.post("/chat/:delete", isAuthenticated, async (req, res, next) => {
         { new: true }
       )
         .then((updatedUsers) => {
-          console.log(updatedUsers);
+          console.log(updatedUsers, "ayyyy");
+          res.render("chat-details.hbs");
+          // res.render("chat-details.hbs", { name: foundRoom.name.name });
         })
         .catch((err) => console.log(err));
     })

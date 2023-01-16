@@ -86,7 +86,7 @@ io.on("connection", (socket) => {
       // console.log(messageCreated, "heyyyy");
       const updatedRoom = await Room.findOneAndUpdate(
         { name: roomie },
-        { $push: { messages: messageCreated }, $addToSet: { users: sesh } },
+        { $push: { messages: messageCreated } },
         { new: true }
       );
       console.log("yo");
@@ -122,8 +122,13 @@ io.on("connection", (socket) => {
 
     try {
       const foundRoom = await Room.findOne({ name: objectId });
+      console.log(foundRoom, "yooooo");
       // console.log(foundRoom, "current room");
-      if (!foundRoom) {
+      if (
+        !foundRoom ||
+        !socket.request.session.user._id ||
+        !socket.request.session.user.name
+      ) {
         const createdRoom = await Room.create({
           name: value,
         });
@@ -146,10 +151,18 @@ io.on("connection", (socket) => {
       // if (foundRoom.users < 2) {
       const pushUserToRoom = await Room.findOneAndUpdate(
         { name: objectId },
-        { $addToSet: { users: socket.request.session.user._id } },
+        {
+          $addToSet: {
+            users: {
+              id: socket.request.session.user._id,
+              name: socket.request.session.user.name,
+            },
+          },
+        },
         { new: true }
       );
       // }
+      console.log(pushUserToRoom);
       // console.log(socket.request.session.user, "nnnnnnnnn");
     } catch (err) {
       console.log(err, "yooy");

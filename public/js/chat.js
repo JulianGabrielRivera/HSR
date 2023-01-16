@@ -196,7 +196,9 @@ console.log(value);
 
 chatForm.addEventListener("submit", (event) => {
   const msg = input.value;
-
+  if (msg === "") {
+    return;
+  }
   console.log(value);
   socket.emit("message", msg, value);
 });
