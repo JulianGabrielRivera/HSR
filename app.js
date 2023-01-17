@@ -29,6 +29,9 @@ mongoose
 const server = http.createServer(app);
 const io = socketio(server);
 // require("./config")(app);
+hbs.registerHelper("empty", function () {
+  return "No Content";
+});
 
 app.set("view engine", hbs);
 // dirname is whatever the file path app.js is then look in views folder.

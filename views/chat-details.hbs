@@ -33,6 +33,11 @@
 <form id="chat-form">
 <div class="chatRightContainer">
 <div class="usersInRoom">
+  {{#if error}}
+<div class="noUser">No current users</div>
+  {{/if}}
+
+  {{#unless error}}
   {{#each usersInRoom}}
    {{!-- {{#each usersInRoom as |user|}} --}}
   
@@ -40,6 +45,8 @@
   <button type="submit" id="kick" data-value="{{id}}">kick</button>
 
 {{/each}}
+{{/unless}}
+
 
 </div>
 <div class="chatMessages">

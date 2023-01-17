@@ -3,5 +3,37 @@
 
 
 
-    <h2>{{username}}</h2>
+    <h2>{{foundUser.username}}</h2>
+<div class="teammateContainer">
+<h1>Players:</h1>
+<div class="playerContainer">
+    {{#each teammates}}
+    
+    <p>{{name}}</p>
+    {{/each}}
+    </div>
+</div>
+<div class="roomContainer" >
+
+    <h1>Rooms:</h1>
+    <div class="roomsContainer">
+    {{#each foundUser.rooms}}
+<p>{{name}}</p>
+
+    {{/each}}
+    </div>
+</div>
+<div class="roleContainer">
+
+    <h1>Roles:</h1>
+    <div class="rolesContainer">
+
+        {{#each teammates}}
+<p>{{teamRole}}</p>
+
+
+        {{/each}}
+    </div>
+</div>
+
 </div>

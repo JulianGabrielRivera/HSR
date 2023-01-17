@@ -113,7 +113,7 @@ router.post("/teamplayers/:id", isAuthenticated, async (req, res) => {
 
     req.session.user = addTeam;
 
-    console.log(req.session.user);
+    console.log(req.session.user, "sesh");
     console.log(addTeam, "yo");
     console.log(playerJoin);
     const team = await Team.findById(id).populate("players");

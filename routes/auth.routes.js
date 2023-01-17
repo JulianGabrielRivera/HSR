@@ -139,12 +139,17 @@ router.get("/chat/:id", isAuthenticated, async (req, res, next) => {
   try {
     const usersInRoom = await Room.findOne({ name: id });
     // console.log(usersInRoom, "ppopopo");
+
     const user = await User.findById(req.session.user._id).populate(
       "rooms messages"
     );
     // console.log(user, "ayyyyy");
     const findARoom = await Room.findOne({ name: id }).populate("messages");
     // console.log(findARoom, "yasssfadf");
+    if (usersInRoom === null) {
+      res.render("chat-details.hbs", { error: "error" });
+      return;
+    }
     res.render("chat-details.hbs", {
       user: user,
       findARoom: findARoom,
@@ -204,8 +209,24 @@ router.post("/chat/:delete", isAuthenticated, async (req, res, next) => {
 
 router.get("/profile", isAuthenticated, (req, res, next) => {
   console.log(req.session.user);
-
-  res.render("profile.hbs", { username: req.session.user.username });
+  User.findById(req.session.user)
+    .populate("teams rooms")
+    .then((foundUser) => {
+      console.log(foundUser);
+      console.log(foundUser.teams[0].players);
+      console.log(foundUser.teams[0]._id);
+      Team.findById(foundUser.teams[0]._id)
+        .populate("players")
+        .then((foundTeam) => {
+          console.log(foundTeam);
+          res.render("profile.hbs", {
+            foundUser: foundUser,
+            teammates: foundTeam.players,
+          });
+        })
+        .catch((err) => console.log(err));
+    })
+    .catch((err) => console.log(err));
 });
 router.get("/profile/:name", async (req, res, next) => {
   const { name } = req.params;
