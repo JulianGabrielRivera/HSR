@@ -4,6 +4,9 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  padding-bottom: 20px;
+  margin: 0;
+  padding: 0;
 }
 body h2 {
   position: absolute;
@@ -25,17 +28,23 @@ body h2 {
 
 .container {
   width: 100%;
-  height: 500px;
+  height: 100%;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
+  margin-top: 20px;
+}
+.teamtitle {
+  margin: 0 auto;
+  width: 100%;
 }
 .card {
-  margin-right: 15px;
-  height: 300px;
+  height: 200px;
   width: 300px;
-  max-height: 300px;
-  max-width: 300px;
+  margin: 20px;
+  /* max-height: 300px;
+  max-width: 300px; */
   text-align: center;
   color: #fff;
   border: 1px solid rgba(255, 255, 255, 0.3);
@@ -43,6 +52,14 @@ body h2 {
   border-radius: 16px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(5px);
+}
+.data {
+  margin-top: 20px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .card img {
@@ -421,8 +438,9 @@ body h2 {
 .signupForm {
   display: flex;
   flex-direction: column;
-  align-items: center;
+
   color: white;
+  width: 300px;
 }
 .signupForm h1 {
   display: flex;
@@ -469,7 +487,7 @@ body h2 {
 }
 .profileContainer {
   display: flex;
-  justify-content: space-around;
+  /* justify-content: space-around; */
   align-items: center;
   flex-direction: column;
   height: 100vh;
@@ -496,7 +514,6 @@ body h2 {
 
 .roomContainer {
   color: white;
-
   width: 40%;
 }
 .roomsContainer {
@@ -516,6 +533,11 @@ body h2 {
   color: black;
 }
 .signupPage {
+  display: flex;
+  justify-content: center;
+  /* justify-content: center; */
+  /* flex-direction: column; */
+  width: 100vw;
   height: 100vh;
 }
 .loginPage {
@@ -523,4 +545,9 @@ body h2 {
 }
 .teamPage {
   height: 100vh;
+  overflow: hidden;
+  /* box-sizing: border-box; */
+}
+#selectRole {
+  /* width: 100%; */
 }

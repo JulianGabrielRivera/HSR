@@ -23,7 +23,7 @@ router.get("/", async (req, res) => {
     const userList = await User.find();
     const roomList = await Room.find().populate("name");
 
-    console.log(roomList, "hey");
+    // console.log(roomList, "hey");
     res.render("index.hbs", {
       teamList: teamList,
       feedList: feedList,
@@ -42,7 +42,7 @@ router.get("/signup", (req, res, next) => {
 });
 
 router.post("/signup", async (req, res, next) => {
-  const { username, password, name, teamRole, teamName, alias } = req.body;
+  const { username, password, name, teamRole, alias } = req.body;
 
   // use bcrypt here
 
@@ -54,7 +54,7 @@ router.post("/signup", async (req, res, next) => {
       password: hashedPassword,
       name,
       teamRole,
-      teamName,
+
       alias,
     });
     res.redirect("/login");
@@ -136,6 +136,7 @@ router.get("/chat", isAuthenticated, async (req, res) => {
 });
 router.get("/chat/:id", isAuthenticated, async (req, res, next) => {
   const { id } = req.params;
+  console.log(req.session.user);
   try {
     const usersInRoom = await Room.findOne({ name: id });
     // console.log(usersInRoom, "ppopopo");
@@ -213,11 +214,25 @@ router.get("/profile", isAuthenticated, (req, res, next) => {
     .populate("teams rooms")
     .then((foundUser) => {
       console.log(foundUser);
-      console.log(foundUser.teams[0].players);
-      console.log(foundUser.teams[0]._id);
+      // console.log(foundUser.teams[0].players);
+      // console.log(foundUser.teams[0]._id);
+      if (!foundUser.teams[0]) {
+        res.render("profile.hbs", {
+          foundUser: foundUser,
+          error: "No players found",
+        });
+        return;
+      }
       Team.findById(foundUser.teams[0]._id)
         .populate("players")
         .then((foundTeam) => {
+          // if (foundTeam.players === undefined) {
+          //   res.render("profile.hbs", {
+          //     foundUser: foundUser,
+          //     error: "No players found",
+          //   });
+          //   return;
+          // }
           console.log(foundTeam);
           res.render("profile.hbs", {
             foundUser: foundUser,

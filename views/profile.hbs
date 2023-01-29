@@ -6,6 +6,10 @@
     <h2>{{foundUser.username}}</h2>
 <div class="teammateContainer">
 <h1>Players:</h1>
+  {{#if error}}
+<div style="color:white;">{{error}}</div>
+  {{/if}}
+  {{#unless error}}
 <div class="playerContainer">
     {{#each teammates}}
     
@@ -13,9 +17,16 @@
     {{/each}}
     </div>
 </div>
+{{/unless}}
+
+
 <div class="roomContainer" >
 
     <h1>Rooms:</h1>
+      {{#if error}}
+<div>{{error}}</div>
+  {{/if}}
+  {{#unless error}}
     <div class="roomsContainer">
     {{#each foundUser.rooms}}
 <p>{{name}}</p>
@@ -23,17 +34,24 @@
     {{/each}}
     </div>
 </div>
+
+{{/unless}}
 <div class="roleContainer">
 
     <h1>Roles:</h1>
+      {{#if error}}
+<div style="width:150px;">{{error}}</div>
+  {{/if}}
+  {{#unless error}}
     <div class="rolesContainer">
 
         {{#each teammates}}
-<p>{{teamRole}}</p>
+<p >{{teamRole}}</p>
 
 
         {{/each}}
     </div>
 </div>
+{{/unless}}
 
 </div>

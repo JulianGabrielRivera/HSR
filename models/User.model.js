@@ -19,10 +19,7 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  teamName: {
-    type: String,
-    required: true,
-  },
+
   teamRole: {
     type: String,
     required: true,

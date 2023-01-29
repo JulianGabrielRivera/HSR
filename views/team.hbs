@@ -1,9 +1,9 @@
 
 
-   <div class="teamPage">
+   {{!-- <div class="teamPage"> --}}
+<h2 class="teamtitle">Vikings</h2>
       <div class="container">
 
-<h2>Vikings</h2>
 
 
    
@@ -13,8 +13,8 @@
         <div class="card data" data-tilt>
 
             <img src="images/vikingsmainlogo.png" alt="" class="vikinglogo">
-            <h1>{{this.username}}</h1>
-            <p>Viking</p>
+<a href="/chat/{{_id}}">{{this.username}}</a>           
+ <p>Viking</p>
             <a href="https://play.esea.net/users/412720">ESEA profile</a>
         </div>
         
@@ -28,10 +28,10 @@
         <div class="donateContainer">
 
          
-<button type="submit">Donate</button>
+
 
             </form>
       
      
-        </div>
+        {{!-- </div> --}}
        

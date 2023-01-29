@@ -15,7 +15,15 @@
             <label for="">Location:</label>
           <input type="text" name="location" />
             <label for="">Division:</label>
-          <input type="text" name="division" />
+            <select  id="teamDivision" name="division" >
+              <option name=''>Select a division</option>
+            <option  name={{division}}>Pro</option>
+            <option name={{division}}>Premier</option>
+            <option  name={{division}}></option>
+
+
+            </select>
+          {{!-- <input type="text" name="division" /> --}}
 
           <button type="submit">
             Create A Team

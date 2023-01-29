@@ -1,38 +1,48 @@
 
 <div class="signupPage">
-    <style>
+    {{!-- <style>
       .stacked > label{ display:block; } .stacked > input{ display:block; }
-    </style>
-    <h1 class="signupForm">Signup here</h1>
+    </style> --}}
 
     <form method="post" action="/signup" class="signupForm">
-      <div class="stacked">
+    <h1 class="signupForm">Signup here</h1>
+      {{!-- <div class="stacked"> --}}
         <label for="">Name:</label>
         <input type="text" name="name" />
-      </div>
-      <div class="stacked">
+      {{!-- </div>
+      <div class="stacked"> --}}
         <label for="">Username:</label>
         <input type="text" name="username" />
-      </div>
+      {{!-- </div> --}}
 
-      <div class="stacked">
+      {{!-- <div class="stacked"> --}}
         <label for="">Password:</label>
         <input type="password" name="password" />
-      </div>
-      <div class="stacked">
+      {{!-- </div> --}}
+      {{!-- <div class="stacked"> --}}
         <label for="">Alias:</label>
         <input type="text" name="alias" />
-      </div>
-      <div class="stacked">
-        <label for="">Team Name:</label>
-        <input type="text" name="teamName" />
-      </div>
-      <div class="stacked">
+      {{!-- </div> --}}
+     
+      {{!-- <div class="stacked">
         <label for="">Team Role:</label>
         <input type="text" name="teamRole" />
-      </div>
+      </div> --}}
+      
+          <label for="">Role:</label>
+       <select  id="selectRole" name="teamRole" >
+              <option name=''>Select Role</option>
+              <option  name={{teamRole}}>Entry</option>
 
-      <div>
+            <option  name={{teamRole}}>Rifler</option>
+            <option name={{teamRole}}>Sniper</option>
+            <option  name={{teamRole}}>Support</option>
+
+
+            </select>
+           
+
+      <div style="margin: 0 auto;">
         <button type="submit">Sign Up</button>
       </div>
     </form>

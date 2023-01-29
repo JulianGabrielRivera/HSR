@@ -21,7 +21,7 @@ router.get("/createteam", async (req, res) => {
 
 router.post("/createteam", async (req, res) => {
   const { teamName, tag, joinPassword, location, division } = req.body;
-
+  console.log(division);
   try {
     const newTeam = await Team.create({
       teamName,

@@ -7,6 +7,9 @@ const link = document.querySelectorAll("#rightContainer a");
 
 console.log(link);
 console.log(userPost);
+
+
+
 specificTeam.addEventListener("change", (event) => {
   const oneTeam = document.querySelector(".teamsHere");
 
