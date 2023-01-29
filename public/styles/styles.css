@@ -36,9 +36,12 @@ body h2 {
   margin-top: 20px;
 }
 .teamtitle {
-  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
 }
+
 .card {
   height: 200px;
   width: 300px;
@@ -550,4 +553,23 @@ body h2 {
 }
 #selectRole {
   /* width: 100%; */
+}
+
+.donatebutton {
+  display: flex;
+  justify-content: center;
+  margin-top: 35px;
+}
+.product {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+}
+.product img {
+  height: 250px;
+}
+.product h3 {
+  color: white;
 }
